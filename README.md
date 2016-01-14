@@ -1,3 +1,3 @@
 # paulmasson.github.io
 
-Default website for serving Github content
+Default landing for serving Github content
