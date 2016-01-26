@@ -55,6 +55,8 @@ http://paulmasson.github.io/sagemath-docs/functions/dilog.html
 http://paulmasson.github.io/sagemath-docs/functions/exp.html
 http://paulmasson.github.io/sagemath-docs/functions/floor.html
 http://paulmasson.github.io/sagemath-docs/functions/gamma.html
+http://paulmasson.github.io/sagemath-docs/functions/gen_laguerre.html
+http://paulmasson.github.io/sagemath-docs/functions/hermite.html
 http://paulmasson.github.io/sagemath-docs/functions/imag.html
 http://paulmasson.github.io/sagemath-docs/functions/imaginary.html
 http://paulmasson.github.io/sagemath-docs/functions/imag_part.html
@@ -85,6 +87,7 @@ http://paulmasson.github.io/sagemath-docs/functions/jacobi_ns.html
 http://paulmasson.github.io/sagemath-docs/functions/jacobi_sc.html
 http://paulmasson.github.io/sagemath-docs/functions/jacobi_sd.html
 http://paulmasson.github.io/sagemath-docs/functions/jacobi_sn.html
+http://paulmasson.github.io/sagemath-docs/functions/laguerre.html
 http://paulmasson.github.io/sagemath-docs/functions/lambert_w.html
 http://paulmasson.github.io/sagemath-docs/functions/ln.html
 http://paulmasson.github.io/sagemath-docs/functions/log.html
