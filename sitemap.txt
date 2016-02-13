@@ -52,6 +52,11 @@ http://paulmasson.github.io/sagemath-docs/functions/coth.html
 http://paulmasson.github.io/sagemath-docs/functions/csc.html
 http://paulmasson.github.io/sagemath-docs/functions/csch.html
 http://paulmasson.github.io/sagemath-docs/functions/dilog.html
+http://paulmasson.github.io/sagemath-docs/functions/elliptic_e.html
+http://paulmasson.github.io/sagemath-docs/functions/elliptic_ec.html
+http://paulmasson.github.io/sagemath-docs/functions/elliptic_eu.html
+http://paulmasson.github.io/sagemath-docs/functions/elliptic_f.html
+http://paulmasson.github.io/sagemath-docs/functions/elliptic_kc.html
 http://paulmasson.github.io/sagemath-docs/functions/exp.html
 http://paulmasson.github.io/sagemath-docs/functions/factorial.html
 http://paulmasson.github.io/sagemath-docs/functions/floor.html
