@@ -1,9 +1,19 @@
 http://paulmasson.github.io/sagemath-docs/index.html
 http://paulmasson.github.io/sagemath-docs/functions.html
 http://paulmasson.github.io/sagemath-docs/operations.html
-http://paulmasson.github.io/sagemath-docs/operations/n.html
+http://paulmasson.github.io/sagemath-docs/operations/column_matrix.html
 http://paulmasson.github.io/sagemath-docs/operations/diff.html
+http://paulmasson.github.io/sagemath-docs/operations/e.html
+http://paulmasson.github.io/sagemath-docs/operations/factor.html
+http://paulmasson.github.io/sagemath-docs/operations/i.html
+http://paulmasson.github.io/sagemath-docs/operations/identity_matrix.html
 http://paulmasson.github.io/sagemath-docs/operations/limit.html
+http://paulmasson.github.io/sagemath-docs/operations/matrix.html
+http://paulmasson.github.io/sagemath-docs/operations/n.html
+http://paulmasson.github.io/sagemath-docs/operations/numerical_approx.html
+http://paulmasson.github.io/sagemath-docs/operations/numerical_integral.html
+http://paulmasson.github.io/sagemath-docs/operations/pi.html
+http://paulmasson.github.io/sagemath-docs/operations/plot.html
 http://paulmasson.github.io/sagemath-docs/operations/pretty_print.html
 http://paulmasson.github.io/sagemath-docs/operations/show.html
 http://paulmasson.github.io/sagemath-docs/functions/abs.html
@@ -60,6 +70,7 @@ http://paulmasson.github.io/sagemath-docs/functions/elliptic_kc.html
 http://paulmasson.github.io/sagemath-docs/functions/exp.html
 http://paulmasson.github.io/sagemath-docs/functions/factorial.html
 http://paulmasson.github.io/sagemath-docs/functions/floor.html
+http://paulmasson.github.io/sagemath-docs/functions/function.html
 http://paulmasson.github.io/sagemath-docs/functions/gamma.html
 http://paulmasson.github.io/sagemath-docs/functions/gen_laguerre.html
 http://paulmasson.github.io/sagemath-docs/functions/hermite.html
@@ -98,6 +109,8 @@ http://paulmasson.github.io/sagemath-docs/functions/laguerre.html
 http://paulmasson.github.io/sagemath-docs/functions/lambert_w.html
 http://paulmasson.github.io/sagemath-docs/functions/ln.html
 http://paulmasson.github.io/sagemath-docs/functions/log.html
+http://paulmasson.github.io/sagemath-docs/functions/max_symbolic.html
+http://paulmasson.github.io/sagemath-docs/functions/min_symbolic.html
 http://paulmasson.github.io/sagemath-docs/functions/piecewise.html
 http://paulmasson.github.io/sagemath-docs/functions/polylog.html
 http://paulmasson.github.io/sagemath-docs/functions/real.html
