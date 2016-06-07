@@ -57,6 +57,8 @@ http://paulmasson.github.io/sagemath-docs/functions/function.html
 http://paulmasson.github.io/sagemath-docs/functions/gamma.html
 http://paulmasson.github.io/sagemath-docs/functions/gen_laguerre.html
 http://paulmasson.github.io/sagemath-docs/functions/hermite.html
+http://paulmasson.github.io/sagemath-docs/functions/hypergeometric.html
+http://paulmasson.github.io/sagemath-docs/functions/hypergeometric_U.html
 http://paulmasson.github.io/sagemath-docs/functions/imag.html
 http://paulmasson.github.io/sagemath-docs/functions/imag_part.html
 http://paulmasson.github.io/sagemath-docs/functions/imaginary.html
