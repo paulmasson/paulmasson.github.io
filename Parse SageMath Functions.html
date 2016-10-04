@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>Parse SageMath functions/all.py in master branch</title>
+<style></style>
+</head>
+
+<body style="margin-top: .5in; margin-left: 1.5in">
+
+<p>Missing functions:</p>
+
+<p id="missing" style="margin-left: 1in; min-height: .5in">(output will go here)</p>
+
+<p>Notes:</p>
+
+<p style="margin-left: .5in">The offset logarithmic integral file is named Li2.html to accommodate the Windows file system.<br/>The Stieltjes constant is in the operations directory.</p>
+
+<script>
+
+var skip = [ 'Bessel', 'Piecewise', 'absolute_import', 'deprecated',
+             'import', 'lazy_import', 'reciprocal_trig_functions', 
+             'sage.functions.piecewise', 'sage.functions.piecewise_old' ];
+
+var xhr = new XMLHttpRequest();
+
+xhr.open( 'GET', 'https://raw.githubusercontent.com/sagemath/sage/master/src/sage/functions/all.py', true );
+
+xhr.onload = function() {
+
+  // remove from-import statements
+  var data = xhr.response.replace( /from.+?import/g, '' );
+
+  // split on punctuation
+  data = data.split( /\s|,|'|=|{|:|}|#|\(|\)/ );
+
+  // remove blank entries
+  data = data.filter( function(s) { return s.length > 0; });
+
+  // remove duplicates
+  data = data.filter( function(s, index, self) { return index == self.indexOf(s); });
+
+  // remove skip items
+  data = data.filter( function(s) { return skip.indexOf(s) < 0; });
+
+  data.sort();
+
+  xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/sagemath-docs/contents/functions', true );
+
+  xhr.onload = function() {
+
+    var files = JSON.parse( xhr.response );
+
+    var fileList = [];
+    for ( var i=0 ; i < files.length ; i++ ) fileList.push( files[i].name );
+
+    s = '';
+    for ( var i=0 ; i < data.length ; i++ )
+      if ( fileList.indexOf( data[i] + '.html' ) < 0 ) s += data[i] + '<br>';
+
+    missing.innerHTML = s;
+
+  }
+
+  xhr.send()
+
+};
+
+xhr.send();
+
+</script>
+
+</body>
+</html>
