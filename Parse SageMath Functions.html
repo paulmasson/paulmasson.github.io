@@ -18,7 +18,8 @@
 
 var skip = [ 'Bessel', 'Piecewise', 'absolute_import', 'deprecated',
              'import', 'lazy_import', 'reciprocal_trig_functions', 
-             'sage.functions.piecewise', 'sage.functions.piecewise_old' ];
+             'sage.functions.piecewise', 'sage.functions.piecewise_old',
+             'sage.functions.error' ];
 
 var xhr = new XMLHttpRequest();
 
@@ -30,16 +31,16 @@ xhr.onload = function() {
   var data = xhr.response.replace( /from.+?import/g, '' );
 
   // split on punctuation
-  data = data.split( /\s|,|'|=|{|:|}|#|\(|\)/ );
+  data = data.split( /[\s,'={}:#()[\]]/ );
 
   // remove blank entries
-  data = data.filter( function(s) { return s.length > 0; });
+  data = data.filter( function(s) { return s.length > 0; } );
 
   // remove duplicates
-  data = data.filter( function(s, index, self) { return index == self.indexOf(s); });
+  data = data.filter( function(s, index, self) { return index === self.indexOf(s); } );
 
   // remove skip items
-  data = data.filter( function(s) { return skip.indexOf(s) < 0; });
+  data = data.filter( function(s) { return skip.indexOf(s) < 0; } );
 
   data.sort();
 
