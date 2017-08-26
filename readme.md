@@ -2,4 +2,4 @@
 
 Default landing for serving GitHub content
 
-http://paulmasson.github.io
+https://paulmasson.github.io
