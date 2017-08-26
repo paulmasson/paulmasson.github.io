@@ -56,12 +56,12 @@
 
 		<div id="info"><a href="http://threejs.org" target="_blank">three.js</a> - multiple elements with text - webgl</div>
 
-		<script src="http://rawgit.com/mrdoob/three.js/dev/build/three.min.js"></script>
-		<script src="http://rawgit.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js"></script>
+		<script src="http://rawgit.com/mrdoob/three.js/r73/build/three.min.js"></script>
+		<script src="http://rawgit.com/mrdoob/three.js/r73/examples/js/controls/OrbitControls.js"></script>
 
-		<script src="http://rawgit.com/mrdoob/three.js/dev/examples/js/Detector.js"></script>
+		<script src="http://rawgit.com/mrdoob/three.js/r73/examples/js/Detector.js"></script>
 		
-		<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+		<script src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
 
 		<script>
 
@@ -192,7 +192,7 @@
 
 				renderer.setClearColor( 0x000000 );
 
-				renderer.setScissorTest( true );
+				renderer.enableScissorTest( true );
 
 				scenes.forEach( function( scene ) {
 
@@ -224,7 +224,7 @@
 
 				} );
 
-				renderer.setScissorTest( false );
+				renderer.enableScissorTest( false );
 				t++;
 
 			}
