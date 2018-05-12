@@ -47,15 +47,15 @@
 
 	function render() {
 
-		requestAnimationFrame( render );
+		//requestAnimationFrame( render );
 		renderer.render( scene, camera );
 
-		//cube.rotation.x += .05;
-		//cube.rotation.z += .05;
+		cube.rotation.x += .05;
+		cube.rotation.z += .05;
 
 	}
 
-	render();
+	renderer.animate( render );
 
 </script>
 
