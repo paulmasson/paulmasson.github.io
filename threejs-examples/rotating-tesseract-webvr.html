@@ -20,6 +20,8 @@
 <script>
 
 	var scene = new THREE.Scene();
+	var scene.positions.set( -3, -3, -3 );
+
 	var renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor( 0x000000, 1 );
@@ -117,6 +119,7 @@
 
 	}
 
+	// no animation frame!
 	renderer.animate( render );
 
 </script>
