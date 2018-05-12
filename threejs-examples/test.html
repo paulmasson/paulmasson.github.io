@@ -14,8 +14,8 @@
 
 <body>
 
-<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
-<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r90/build/three.min.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r90/examples/js/vr/WebVR.js></script>
 
 <script>
 
@@ -30,8 +30,10 @@
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.up.set( 0, 0, 1 );
-	camera.position.set( 3, 3, 3 );
-	var controls = new THREE.OrbitControls( camera, renderer.domElement );
+	camera.position.set( 0,0,3 );
+//camera.lookAt( 0, 0, 0 );
+
+	//var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	window.addEventListener( 'resize', function() {
 
@@ -43,16 +45,20 @@
 
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var material = new THREE.MeshNormalMaterial();
-	scene.add( new THREE.Mesh( geometry, material ) );
+	var cube = new THREE.Mesh( geometry, material );
+	scene.add( cube );
 
 	function render() {
 
-		//requestAnimationFrame( render );
+		requestAnimationFrame( render );
 		renderer.render( scene, camera );
+
+		cube.rotation.x += .05;
+		cube.rotation.z += .05;
 
 	}
 
-	render(); render();
+	render();
 
 </script>
 
