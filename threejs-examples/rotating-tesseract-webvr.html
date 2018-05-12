@@ -26,6 +26,7 @@
 	renderer.setClearColor( 0x000000, 1 );
 	document.body.appendChild( renderer.domElement );
 
+	renderer.vr.enabled = true;
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
