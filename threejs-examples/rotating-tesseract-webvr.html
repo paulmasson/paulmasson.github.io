@@ -15,7 +15,6 @@
 <body>
 
 <script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
-<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/controls/OrbitControls.js></script>
 <script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
 
 <script>
@@ -32,7 +31,6 @@
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.up.set( 0, 0, 1 );
 	camera.position.set( 3, 3, 3 );
-	var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	window.addEventListener( 'resize', function() {
 
@@ -76,7 +74,6 @@
 
 	function render() {
 
-		//requestAnimationFrame( render );
 		renderer.render( scene, camera );
 
 		for ( var i = 0 ; i < vertices.length ; i++ ) {
@@ -120,7 +117,7 @@
 
 	}
 
-	render(); render();
+	renderer.animate( render );
 
 </script>
 
