@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rotating Tesseract in WebVR</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+<style>
+
+	body { margin: 0px; overflow: hidden; }
+
+</style>
+</head>
+
+<body>
+
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/controls/OrbitControls.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
+
+<script>
+
+	var scene = new THREE.Scene();
+	var renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor( 0x000000, 1 );
+	document.body.appendChild( renderer.domElement );
+
+	renderer.vr.enabled = true;
+	document.body.appendChild( WEBVR.createButton( renderer ) );
+
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.up.set( 0, 0, 1 );
+	camera.position.set( 3, 3, 3 );
+	var controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+	window.addEventListener( 'resize', function() {
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+	} );
+
+	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+	var material = new THREE.MeshNormalMaterial();
+	scene.add( new THREE.Mesh( geometry, material ) );
+
+	function render() {
+
+		//requestAnimationFrame( render );
+		renderer.render( scene, camera );
+
+	}
+
+	render(); render();
+
+</script>
+
+</body>
+</html>
