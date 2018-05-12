@@ -31,9 +31,6 @@
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.up.set( 0, 0, 1 );
 	camera.position.set( 0,0,3 );
-//camera.lookAt( 0, 0, 0 );
-
-	//var controls = new THREE.OrbitControls( camera, renderer.domElement );
 
 	window.addEventListener( 'resize', function() {
 
@@ -53,8 +50,8 @@
 		requestAnimationFrame( render );
 		renderer.render( scene, camera );
 
-		cube.rotation.x += .05;
-		cube.rotation.z += .05;
+		//cube.rotation.x += .05;
+		//cube.rotation.z += .05;
 
 	}
 
