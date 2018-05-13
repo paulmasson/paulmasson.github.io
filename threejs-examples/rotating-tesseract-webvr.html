@@ -16,6 +16,7 @@
 
 <script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
 <script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/constrols/VRControls.js></script>
 
 <script>
 
@@ -34,6 +35,8 @@
 	camera.up.set( 0, 0, 1 );
 	camera.position.set( 3, 3, 3 );
 	camera.lookAt( 0, 0, 0 );
+
+	var controls = new THREE.VRControls( camera );
 
 	window.addEventListener( 'resize', function() {
 
