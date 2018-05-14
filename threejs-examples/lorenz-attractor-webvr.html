@@ -8,7 +8,7 @@
 <style>
 
 	body { margin: 0px; overflow: hidden; }
-  
+
 </style>
 </head>
 
@@ -46,7 +46,7 @@
 	renderer.vr.enabled = true;
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
-	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 ); 
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	camera.lookAt( 0, 1, 1 );
 
 //	camera.up.set( 0, 0, 1 );
@@ -55,13 +55,13 @@
 //	scene.position.z = -scale;
 
 	window.addEventListener( 'resize', function() {
-		
+
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		camera.aspect = window.innerWidth / window.innerHeight;
 		camera.updateProjectionMatrix();
-		
+
 	} );
-	
+
 	var geometry = new THREE.Geometry();
 	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 	var line = new THREE.Line();
@@ -69,11 +69,11 @@
 	function move() {
 
 		if ( current < steps ) {
-		
+
 			var dx = sigma * ( y - x ) * dt;
 			var dy = ( x * ( rho - z ) - y ) * dt;
 			var dz = ( x * y - beta * z ) * dt;
-  
+
 			x += dx;
 			y += dy;
 			z += dz;
@@ -113,7 +113,7 @@
 		scene.add( line );
 
 	}
-	
+
 	// no animation frame!
 	renderer.animate( render );
 
