@@ -58,7 +58,6 @@
 	} );
 
 	var geometry = new THREE.Geometry();
-	var bufferGeometry = new THREE.BufferGeometry();
 	var line = new THREE.Line();
 
 	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
@@ -102,12 +101,9 @@
 
 		for ( var i = 0 ; i < multiplier ; i++ ) move();
 
-		//var geometry2 = geometry.clone();
-		//geometry2.colors = geometry.colors; // clone doesn't copy colors!
-
-		bufferGeometry.fromGeometry( geometry );
-
-		line = new THREE.Line( bufferGeometry, material );
+		line.geometry = geometry.clone();
+		line.geometry.colors = geometry.colors; // clone doesn't copy colors!
+		line.material = material;
 
 		scene.add( line );
 
