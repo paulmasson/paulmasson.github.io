@@ -47,12 +47,7 @@
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.lookAt( 0, 1, 1 );
-
-//	camera.up.set( 0, 0, 1 );
-//	camera.position.set( 0, 1.5*scale, 1.5*scale );
-
-//	scene.position.z = -scale;
+	camera.lookAt( 0, 0, -1.5*scale );
 
 	window.addEventListener( 'resize', function() {
 
@@ -105,7 +100,7 @@
 
 		for ( var i = 0 ; i < multiplier ; i++ ) move();
 
-		geometry2 = geometry.clone();
+		var geometry2 = geometry.clone();
 		geometry2.colors = geometry.colors; // clone doesn't copy colors!
 
 		line = new THREE.Line( geometry2, material );
