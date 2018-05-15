@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lorenz Attractor in WebVR</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+<style>
+
+	body { margin: 0px; overflow: hidden; }
+
+</style>
+</head>
+
+<body>
+
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
+
+<script>
+
+	var scale = 30;
+	var multiplier = 10; // integer, increase for faster visualization
+
+	var steps = 100000;
+	var current = 1;
+	var shown = 10000;
+
+	var beta = 8/3;
+	var rho = 28;
+	var sigma = 10;
+
+	var x = scale / 2 * Math.random();
+	var y = scale / 2 * Math.random();
+	var z = scale / 2 * Math.random();
+	var dt = .005;
+
+	var scene = new THREE.Scene();
+	scene.position.set( 0, 0, -1.5*scale );
+
+	var renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor( 0x000000, 1 );
+	document.body.appendChild( renderer.domElement );
+
+	renderer.vr.enabled = true;
+	document.body.appendChild( WEBVR.createButton( renderer ) );
+
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.lookAt( 0, 0, -1.5*scale );
+
+	window.addEventListener( 'resize', function() {
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+	} );
+
+	var geometry = new THREE.Geometry();
+	var line = new THREE.Line();
+
+	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+
+	function move() {
+
+		if ( current < steps ) {
+
+			var dx = sigma * ( y - x ) * dt;
+			var dy = ( x * ( rho - z ) - y ) * dt;
+			var dz = ( x * y - beta * z ) * dt;
+
+			x += dx;
+			y += dy;
+			z += dz;
+
+			geometry.vertices.push( new THREE.Vector3( x, y, z ) );
+			geometry.colors.push( new THREE.Color().setHSL( current / steps, 1, .5) );
+
+		}
+
+		if ( current > shown ) {
+
+			geometry.vertices.shift();
+			geometry.colors.shift();
+
+		}
+
+		if ( current < steps + shown ) current++;
+		else current = 0;
+
+	}
+
+	function render() {
+
+		renderer.render( scene, camera );
+
+		scene.rotation.z += .001;
+
+		scene.remove( line );
+
+		for ( var i = 0 ; i < multiplier ; i++ ) move();
+
+		line.geometry = geometry.clone();
+		line.geometry.colors = geometry.colors; // clone doesn't copy colors!
+		line.material = material;
+
+		scene.add( line );
+
+	}
+
+	// no animation frame!
+	renderer.animate( render );
+
+</script>
+
+</body>
+</html>
