@@ -60,6 +60,7 @@
 	} );
 
 	var geometry = new THREE.BufferGeometry();
+	geometry.drawRange = shown;
 
 	var positions = new Float32Array( 3 * shown );
 	for ( var i = 0 ; i < positions.length ; i += 3 ) positions.set( [ x, y, z ], i );
