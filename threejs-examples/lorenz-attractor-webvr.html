@@ -77,8 +77,8 @@
 
 	function move() {
 
-		geometry.attributes.position.array.copyWithin( 3, 0 );
-		geometry.attributes.color.array.copyWithin( 3, 0 );
+		geometry.attributes.position.array.copyWithin( 3 );
+		geometry.attributes.color.array.copyWithin( 3 );
 
 		if ( current < steps ) {
 
