@@ -69,9 +69,10 @@
 	for ( var i = 0 ; i < positions.length ; i += 3 ) colors.set( [ 1, 0, 0 ], i );
 	geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
 
-	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors, depthWrite: false } );
+	var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 
 	var line = new THREE.Line( geometry, material );
+	line.frustumCulled = false;
 	scene.add( line );
 
 	var gridHelper = new THREE.GridHelper( 100, 10 );
