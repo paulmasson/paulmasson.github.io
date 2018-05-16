@@ -74,11 +74,11 @@
 	var line = new THREE.Line( geometry, material );
 	line.frustumCulled = false;
 	scene.add( line );
-
+/*
 	var gridHelper = new THREE.GridHelper( 100, 10 );
 	gridHelper.position.y = -10;
 	scene.add( gridHelper );
-
+*/
 	function move() {
 
 		geometry.attributes.position.array.copyWithin( 3, 0 );
@@ -110,8 +110,7 @@
 
 		renderer.render( scene, camera );
 
-		//scene.rotation.z += .001;
-		//gridHelper.rotation.z -= .001;
+		scene.rotation.z += .001;
 
 		for ( var i = 0 ; i < multiplier ; i++ ) move();
 
