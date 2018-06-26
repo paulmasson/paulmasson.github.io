@@ -38,7 +38,6 @@
 	var c = new THREE.Color();
 
 	var scene = new THREE.Scene();
-	scene.position.set( 0, 0, -1.5*scale );
 
 	var renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -48,8 +47,7 @@
 	renderer.vr.enabled = true;
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
-	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.lookAt( 0, 0, -1.5*scale );
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 4*scale );
 
 	window.addEventListener( 'resize', function() {
 
@@ -73,6 +71,7 @@
 
 	var line = new THREE.Line( geometry, material );
 	line.frustumCulled = false; // critical to avoid blackouts!
+	line.position.set( 0, 0, -1.5*scale );
 	scene.add( line );
 
 	function move() {
