@@ -20,7 +20,7 @@
 <script>
 
 	var scene = new THREE.Scene();
-	scene.position.set( 0, 1, -3 );
+	scene.position.set( 0, 1.5, -3 );
 	scene.rotation.y = 4;
 
 	var renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -31,8 +31,7 @@
 	renderer.vr.enabled = true;
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
-	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
-	camera.lookAt( 0, 1, -3 );
+	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10 );
 
 	window.addEventListener( 'resize', function() {
 
