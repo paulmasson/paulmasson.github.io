@@ -32,6 +32,7 @@
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10 );
+	camera.lookAt( 0, 1.5, -3 );
 
 	window.addEventListener( 'resize', function() {
 
