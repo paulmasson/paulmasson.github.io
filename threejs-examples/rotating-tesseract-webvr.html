@@ -14,8 +14,8 @@
 
 <body>
 
-<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/build/three.min.js></script>
-<script src=https://cdn.rawgit.com/mrdoob/three.js/r92/examples/js/vr/WebVR.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r95/build/three.min.js></script>
+<script src=https://cdn.rawgit.com/mrdoob/three.js/r95/examples/js/vr/WebVR.js></script>
 
 <script>
 
@@ -32,7 +32,6 @@
 	document.body.appendChild( WEBVR.createButton( renderer ) );
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10 );
-	camera.lookAt( 0, 1.5, -3 );
 
 	window.addEventListener( 'resize', function() {
 
@@ -120,7 +119,7 @@
 	}
 
 	// no animation frame!
-	renderer.animate( render );
+	renderer.setAnimationLoop( render );
 
 </script>
 
