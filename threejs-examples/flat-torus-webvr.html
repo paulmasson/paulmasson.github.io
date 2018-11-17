@@ -50,16 +50,16 @@
 	var material = new THREE.MeshPhongMaterial( { wireframe: true } );
 
 	torus = new THREE.Mesh( geometry, material );
-	torus.position.set( 0, 1.5, - 1 );
+	torus.position.set( 0, 1.5, -1 );
 	scene.add( torus );
 
 	var light1 = new THREE.DirectionalLight( 0xffffff, 1 );
-	light1.position.set( 0, 3, - 1 );
+	light1.position.set( 0, 3, -1 );
 	light1.target = torus;
 	scene.add( light1 );
 
 	var light2 = new THREE.DirectionalLight( 0xffffff, 1 );
-	light2.position.set( 0, - 1, - 1 );
+	light2.position.set( 0, -1, -1 );
 	light2.target = torus;
 	scene.add( light2 );
 
@@ -70,7 +70,7 @@
 		new THREE.PlaneBufferGeometry( 10, 10 ),
 		new THREE.MeshPhongMaterial( { color: 0x111111, shininess: 0 } )
 	);
-	ground.geometry.rotateX( - 90 * Math.PI / 180 );
+	ground.geometry.rotateX( -90 * Math.PI / 180 );
 	scene.add( ground );
 
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
