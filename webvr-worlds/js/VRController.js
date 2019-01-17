@@ -7,15 +7,16 @@ THREE.VRController = function( camera ) {
 
   this.turnRate = .01;
   this.moveRate = .1;
-  this.direction = new THREE.Vector3();
+
+  var direction = new THREE.Vector3();
 
   this.update = function() {
 
     var gp = navigator.getGamepads()[0];
 
-    if ( gp !== null && gp.buttons && gp.buttons[0].pressed ) {
+    if ( gp !== null && gp.buttons[0].pressed ) {
 
-      camera.getWorldDirection( this.direction );
+      camera.getWorldDirection( direction );
 
       var n = Math.round( 2 * Math.atan2( gp.axes[1], gp.axes[0] ) / Math.PI );
 
@@ -31,18 +32,16 @@ THREE.VRController = function( camera ) {
           this.rig.rotation.y += this.turnRate;
           break;
         case 1:
-          this.rig.position.add( this.direction.multiplyScalar( -this.moveRate ) );
+          this.rig.position.add( direction.multiplyScalar( -this.moveRate ) );
           break;
         case -1:
-          this.rig.position.add( this.direction.multiplyScalar( this.moveRate ) );
+          this.rig.position.add( direction.multiplyScalar( this.moveRate ) );
           break;
         default:
 
       }
 
     }
-    
-    gp = null;
 
   }
 
