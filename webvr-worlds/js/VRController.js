@@ -41,6 +41,8 @@ THREE.VRController = function( camera ) {
       }
 
     }
+    
+    gp = null;
 
   }
 
