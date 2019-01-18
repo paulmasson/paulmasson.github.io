@@ -73,7 +73,7 @@ var material = new THREE.MeshStandardMaterial();
 var mesh = new THREE.Mesh( geometry, material );
 scene.add( mesh );
 
-var ambient = new THREE.AmbientLight( 0x0101010 );
+var ambient = new THREE.AmbientLight( 0x0202020 );
 scene.add( ambient );
 
 var lights = [];
@@ -90,7 +90,7 @@ function addLight( i ) {
                   speed * ( 1 - 2 * Math.random() ),
                   speed * ( 1 - 2 * Math.random() ) );
   l.distance = 5 * spacing;
-  l.intensity = 1;
+  l.intensity = 2;
 
   l.color.setHSL( i/n, 1, .5 )
 
