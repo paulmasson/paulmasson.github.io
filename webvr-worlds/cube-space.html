@@ -77,9 +77,9 @@ var ambient = new THREE.AmbientLight( 0x0101010 );
 scene.add( ambient );
 
 var lights = [];
-for ( var i = 0 ; i < n ; i++ ) addLight();
+for ( var i = 0 ; i < n ; i++ ) addLight( i );
 
-function addLight() {
+function addLight( i ) {
 
   var l = new THREE.PointLight();
   l.position.set( range * ( 1 - 2 * Math.random() ),
@@ -91,6 +91,8 @@ function addLight() {
                   speed * ( 1 - 2 * Math.random() ) );
   l.distance = 5 * spacing;
   l.intensity = 1;
+
+  l.color.setHSL( i/n, 1, .5 )
 
   lights.push( l );
   scene.add( l );
@@ -107,20 +109,12 @@ function moveLight( l ) {
 
 }
 
-var h = 0;
-
 function render() {
 
   renderer.render( scene, camera );
   controller.update();
 
-  material.color.setHSL( h, 1, .5 );
-  material.needsUpdate = true;
-
   lights.forEach( l => moveLight( l ) );
-
-  h += .01;
-  if ( h > 1 ) h = 0;
 
 }
 
