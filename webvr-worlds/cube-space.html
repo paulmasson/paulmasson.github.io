@@ -45,28 +45,75 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-var geometry = new THREE.BoxGeometry( .5, .5, .5 );
-var material = new THREE.MeshNormalMaterial();
+var cubes = 20;
+var spacing = 5;
+var size = .3;
 
-var cubes = 15;
-var spacing = 7;
+var n = 10;
+var speed = .5;
+var range = cubes * spacing / 2;
+
+var geometry = new THREE.Geometry();
 
 for ( var i = 0 ; i < cubes ; i++ )
   for ( var j = 0 ; j < cubes ; j++ )
     for ( var k = 0 ; k < cubes ; k++ ) {
 
-      var mesh = new THREE.Mesh( geometry, material );
-      mesh.position.set( spacing * ( cubes/2 - i ),
-                         spacing * ( cubes/2 - j ),
-                         spacing * ( cubes/2 - k ) );
-      scene.add( mesh ); 
+      var box = new THREE.BoxGeometry( size, size, size )
+      box.translate( spacing * ( cubes/2 - i ),
+                     spacing * ( cubes/2 - j ),
+                     spacing * ( cubes/2 - k ) );
+
+      geometry.merge( box );
 
     }
+
+var color = new THREE.Color().setHSL( Math.random(), 1, .5 );
+var material = new THREE.MeshStandardMaterial( { color: color } );
+
+var mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+var ambient = new THREE.AmbientLight( 0x0101010 );
+scene.add( ambient );
+
+var lights = [];
+for ( var i = 0 ; i < n ; i++ ) addLight();
+
+function addLight() {
+
+  var l = new THREE.PointLight();
+  l.position.set( range * ( 1 - 2 * Math.random() ),
+                  range * ( 1 - 2 * Math.random() ),
+                  range * ( 1 - 2 * Math.random() ) );
+  l.velocity = new THREE.Vector3().set(
+                  speed * ( 1 - 2 * Math.random() ),
+                  speed * ( 1 - 2 * Math.random() ),
+                  speed * ( 1 - 2 * Math.random() ) );
+  l.distance = 5 * spacing;
+  l.intensity = 1;
+
+  lights.push( l );
+  scene.add( l );
+
+}
+
+function moveLight( l ) {
+
+  l.position.add( l.velocity );
+
+  if ( l.position.x > range || l.position.x < -range ) l.velocity.x = -l.velocity.x;
+  if ( l.position.y > range || l.position.y < -range ) l.velocity.y = -l.velocity.y;
+  if ( l.position.z > range || l.position.z < -range ) l.velocity.z = -l.velocity.z;
+
+}
 
 function render() {
 
   renderer.render( scene, camera );
   controller.update();
+
+  lights.forEach( l => moveLight( l ) );
 
 }
 
