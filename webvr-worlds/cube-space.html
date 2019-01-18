@@ -68,8 +68,7 @@ for ( var i = 0 ; i < cubes ; i++ )
 
     }
 
-var color = new THREE.Color().setHSL( Math.random(), 1, .5 );
-var material = new THREE.MeshStandardMaterial( { color: color } );
+var material = new THREE.MeshStandardMaterial();
 
 var mesh = new THREE.Mesh( geometry, material );
 scene.add( mesh );
@@ -108,12 +107,20 @@ function moveLight( l ) {
 
 }
 
+var h = 0;
+
 function render() {
 
   renderer.render( scene, camera );
   controller.update();
 
+  material.color.setHSL( h, 1, .5 );
+  material.needsUpdate = true;
+
   lights.forEach( l => moveLight( l ) );
+
+  h += .01;
+  if ( h > 1 ) h = 0;
 
 }
 
