@@ -22,7 +22,7 @@ THREE.VRController = function( camera ) {
 
       var n = Math.round( 2 * Math.atan2( gp.axes[1], gp.axes[0] ) / Math.PI );
 
-      if ( Math.sqrt( gp.axes[0]**2 + gp.axes[1]**2 ) < .5 ) n = 3;
+      if ( Math.sqrt( gp.axes[0]**2 + gp.axes[1]**2 ) < .1 ) n = 3;
 
       switch( n ) {
 
