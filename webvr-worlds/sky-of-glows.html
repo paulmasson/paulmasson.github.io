@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Sky of Glowing Balls</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var scale = 20;
+var speed = .001;
+
+var spheres = [];
+var sphere = new THREE.SphereGeometry( .5, 30, 30 );
+
+var material = new THREE.MeshPhongMaterial( { color: 'black', transparent: true, opacity: .9,
+                                              side: THREE.BackSide } );
+
+for ( var i = 0 ; i < 40 ; i++ ) {
+
+  var mesh = new THREE.Mesh( sphere, material );
+
+  mesh.position.x = scale * ( 1 - 2 * Math.random() );
+  mesh.position.y = scale * ( 1 - 2 * Math.random() );
+  mesh.position.z = scale * ( 1 - 2 * Math.random() );
+
+  mesh.axis = new THREE.Vector3( 1 - 2 * Math.random(),
+                                 1 - 2 * Math.random(),
+                                 1 - 2 * Math.random() ).normalize();
+  mesh.angle = speed * ( Math.random() + 1 );
+
+  var light = new THREE.PointLight();
+  light.color.setHSL( Math.random(), 1, .5 );
+  light.intensity = 10;
+  light.distance = 1;
+  mesh.add( light );
+
+  spheres.push( mesh );
+  scene.add( mesh );
+
+}
+
+var geometry = new THREE.Geometry();
+
+for ( var i = 0 ; i < 5000 ; i++ ) {
+
+  var v = new THREE.Vector3( 1 - 2 * Math.random(),
+                             1 - 2 * Math.random(),
+                             1 - 2 * Math.random() ).normalize();
+  geometry.vertices.push( v.multiplyScalar( 900 ) );
+
+}
+
+var stars = new THREE.Points( geometry, new THREE.PointsMaterial( { size: .01 } ) );
+scene.add( stars );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+  spheres.forEach( s => s.position.applyAxisAngle( s.axis, s.angle ) );
+
+  stars.rotation.z += .001;
+
+}
+
+// no animation frame!
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>
