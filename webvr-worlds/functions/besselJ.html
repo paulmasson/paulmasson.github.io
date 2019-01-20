@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bessel Function of First Kind</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="https://paulmasson.github.io/math/build/math.js"></script>
+
+<script src="../js/FunctionSurface.js"></script>
+<script src="../js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var n = -6.5;
+
+var surface = functionSurface( (x,y) => [ x, y, besselJ( n, C(x,y) ) ], [-9.999,9.999,251], [-9.999,9.999,251],
+                               { complexFunction: 're', colormap: 'complexArgument' } )
+// setting camera up not work
+surface.rotation.z = pi;
+surface.rotation.x = -pi/2;
+
+scene.add( surface );
+
+controller.rig.position.set( 0, 0, 15 );
+
+scene.add( new THREE.AmbientLight() );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update()
+
+}
+
+// no animation frame!
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>
