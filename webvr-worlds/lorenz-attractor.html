@@ -30,7 +30,6 @@ var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHe
 
 var controller = new THREE.VRController( camera );
 controller.rig.add( camera );
-controller.moveRate = .01;
 scene.add( controller.rig );
 
 window.addEventListener( 'resize', function() {
