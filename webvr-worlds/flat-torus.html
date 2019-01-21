@@ -16,6 +16,31 @@
 
 <script>
 
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+controller.moveRate = .01;
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
 var a = .5, b = .5, nMax = 10, n = 0;
 var direction = 1, paused = true, count = pauseLength = 100;
 
@@ -38,23 +63,6 @@ function f( u, v, target ) {
 
 }
 
-var scene = new THREE.Scene();
-
-var renderer = new THREE.WebGLRenderer( { antialias: true } );
-renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
-
-renderer.vr.enabled = true;
-document.body.appendChild( WEBVR.createButton( renderer ) );
-
-var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 100 );
-
-var controller = new THREE.VRController( camera );
-controller.rig.add( camera );
-controller.moveRate = .01;
-scene.add( controller.rig );
-
 var geometry = new THREE.ParametricBufferGeometry( f, uSteps, vSteps );
 var material = new THREE.MeshPhongMaterial( { wireframe: true } );
 
@@ -74,14 +82,6 @@ scene.add( light2 );
 
 var ambient = new THREE.AmbientLight( 0x666666 );
 scene.add( ambient );
-
-window.addEventListener( 'resize', function() {
-
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-
-} );
 
 function render() {
 
