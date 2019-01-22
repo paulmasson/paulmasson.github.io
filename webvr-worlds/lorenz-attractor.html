@@ -105,7 +105,9 @@ function move() {
 function render() {
 
   renderer.render( scene, camera );
-  controller.update()
+  controller.update();
+
+  line.rotation.z += .001;
 
   for ( var i = 0 ; i < multiplier ; i++ ) move();
 
