@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gravitating System</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+<style>
+
+	body { margin: 0px; overflow: hidden; }
+	#display { position: absolute; margin: .25in; color: green; font-size: 20pt; }
+
+</style>
+</head>
+
+<body>
+
+<div id=display>
+<i>E</i> = <span id=d1></span><br>
+&Delta;<i>E</i> = <span id=d2></span>
+</div>
+
+<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js></script>
+
+<script src="js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+controller.rig.position.set( 0, -1.5, 3 );
+scene.add( controller.rig );
+
+var light = new THREE.PointLight( 0xffffff, .8 );
+scene.add( light );
+
+var ambient = new THREE.AmbientLight( 0x555555 );
+scene.add( ambient );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var n = 10; // number of bodies
+
+var rate = 10000;
+var dt = 1e-7;
+
+var radius = .03;
+var velocityScale = 2;
+var gravity = 1;
+
+var scratch = new THREE.Vector3();
+
+var spheres = [], positions = [], velocities = [];
+
+var center = new THREE.Vector3();
+
+for ( var i = 0 ; i < n ; i++ ) {
+
+  var geometry = new THREE.SphereGeometry( radius, 20, 20 );
+
+  var material = new THREE.MeshPhongMaterial();
+  material.color = new THREE.Color().setHSL( Math.random(), 1, .5 );
+
+  var mesh = new THREE.Mesh( geometry, material );
+  spheres.push( mesh );
+  scene.add( mesh );
+
+  positions.push( new THREE.Vector3( 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1 ) );
+
+  velocities.push( new THREE.Vector3( velocityScale * ( 2*Math.random()-1 ),
+    	velocityScale * ( 2*Math.random()-1 ), velocityScale * ( 2*Math.random()-1 ) ) );
+
+  center.add( velocities[i] );
+
+}
+
+// set center of momentum to origin
+center.multiplyScalar( 1/n );
+velocities.forEach( v => v.sub( center ) );
+
+var E0 = energy();
+
+function energy() {
+
+  var E = 0;
+
+  for ( var i = 0 ; i < n ; i++ ) {
+
+    E += velocities[i].lengthSq() / 2;
+
+    for ( var j = i + 1 ; j < n ; j++ ) {
+
+      var r = scratch.subVectors( positions[i], positions[j] ).length();
+
+      E -= gravity / r;
+
+    }
+
+  }
+
+  return E;
+
+}
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+  for ( var times = 0 ; times < rate ; times++ ) {
+
+    // first update positions from current velocity
+
+    for ( var i = 0 ; i < n ; i++ ) {
+
+      var v = velocities[i];
+
+      positions[i].x += v.x * dt;
+      positions[i].y += v.y * dt;
+      positions[i].z += v.z * dt;
+
+    }
+
+    // then update velocities from new positions
+
+    for ( var i = 0 ; i < n ; i++ ) {
+
+      for ( var j = i + 1 ; j < n ; j++ ) {
+
+      	var r = scratch.subVectors( positions[i], positions[j] ).length();
+
+        var delta = scratch.subVectors( positions[i], positions[j] )
+                           .multiplyScalar( -gravity / Math.pow( r, 3 ) * dt );
+
+        velocities[i].x += delta.x;
+        velocities[j].x -= delta.x;
+
+        velocities[i].y += delta.y;
+        velocities[j].y -= delta.y;
+
+        velocities[i].z += delta.z;
+        velocities[j].z -= delta.z;
+
+      }
+
+    }
+
+  }
+
+  // update positions of spheres
+
+  for ( var i = 0 ; i < n ; i++ ) {
+
+    var v = positions[i];
+    spheres[i].position.set( v.x, v.y, v.z );
+    spheres[i].geometry.verticesNeedUpdate = true;
+
+  }
+
+  d1.innerHTML = energy().toFixed(8);
+  d2.innerHTML = ( energy() - E0 ).toExponential(4);
+
+}
+
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

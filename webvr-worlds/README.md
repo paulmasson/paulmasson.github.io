@@ -9,6 +9,8 @@ Beginning experiences:
 [Flat Torus](https://paulmasson.github.io/webvr-worlds/flat-torus.html)<br>
 [Lorenz Attractor](https://paulmasson.github.io/webvr-worlds/lorenz-attractor.html)
 
+[Gravitating System](https://paulmasson.github.io/webvr-worlds/gravitating-system.html)
+
 Special functions in WebVR:
 
 [Gamma function](https://paulmasson.github.io/webvr-worlds/functions/gamma.html)<br/>
