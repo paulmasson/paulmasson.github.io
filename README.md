@@ -1,5 +1,5 @@
 # paulmasson.github.io
 
-Default [landing](https://paulmasson.github.io) for GitHub content
+Default landing for GitHub content: https://paulmasson.github.io
 
-Compact [VRController](https://github.com/paulmasson/paulmasson.github.io/blob/master/webvr-worlds/js/VRController.js) for thumbpads
+A nice little compact [VRController](https://github.com/paulmasson/paulmasson.github.io/blob/master/webvr-worlds/js/VRController.js) for thumbpads is available
