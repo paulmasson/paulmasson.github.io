@@ -37,11 +37,12 @@ document.body.appendChild( renderer.domElement );
 renderer.vr.enabled = true;
 document.body.appendChild( WEBVR.createButton( renderer ) );
 
-var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 var controller = new THREE.VRController( camera );
 controller.rig.add( camera );
 controller.rig.position.set( 0, -1.5, 3 );
+controller.turnRate = .03;
 scene.add( controller.rig );
 
 var light = new THREE.PointLight( 0xffffff, .8 );
@@ -65,13 +66,16 @@ var dt = 1e-7;
 
 var radius = .03;
 var velocityScale = 2;
-var gravity = 1;
+var gravity = 2;
 
 var scratch = new THREE.Vector3();
 
 var spheres = [], positions = [], velocities = [];
 
 var center = new THREE.Vector3();
+
+var normal = new THREE.Vector3();
+var relativeVelocity = new THREE.Vector3();
 
 for ( var i = 0 ; i < n ; i++ ) {
 
@@ -121,6 +125,21 @@ function energy() {
 
 }
 
+var geometry = new THREE.Geometry();
+
+for ( var i = 0 ; i < 1000 ; i++ ) {
+
+  var v = new THREE.Vector3( 1 - 2 * Math.random(),
+                             1 - 2 * Math.random(),
+                             1 - 2 * Math.random() ).normalize();
+  geometry.vertices.push( v.multiplyScalar( 900 ) );
+
+}
+
+var stars = new THREE.Points( geometry, new THREE.PointsMaterial( { size: .01 } ) );
+scene.add( stars );
+
+
 function render() {
 
   renderer.render( scene, camera );
@@ -137,6 +156,28 @@ function render() {
       positions[i].x += v.x * dt;
       positions[i].y += v.y * dt;
       positions[i].z += v.z * dt;
+
+      // elastic collision to avoid interpenetration
+      for ( var j = i + 1 ; j < n ; j++ ) {
+
+        scratch.copy( positions[i] ).sub( positions[j] );
+
+        // exchange normal velocities for collision, leave tangential alone
+        if ( scratch.length() < 2 * radius ) {
+
+          normal.copy( positions[i] ).sub( positions[j] ).normalize();
+
+          relativeVelocity.copy( velocities[i] ).sub( velocities[j] );
+          var dot = relativeVelocity.dot( normal );
+
+          normal = normal.multiplyScalar( dot );
+
+          velocities[i].sub( normal );
+           velocities[j].add( normal );
+
+         }
+
+      }
 
     }
 
