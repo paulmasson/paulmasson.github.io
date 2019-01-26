@@ -14,6 +14,8 @@
 
 <script src="js/VRController.js"></script>
 
+<audio src="audio/space-drone.mp3" id="drone" loop></audio>
+
 <script>
 
 var scene = new THREE.Scene();
@@ -39,6 +41,8 @@ window.addEventListener( 'resize', function() {
   camera.updateProjectionMatrix();
 
 } );
+
+window.addEventListener( 'vrdisplaypresentchange', function() { drone.play(); } );
 
 var scale = 10;
 var speed = .001;
