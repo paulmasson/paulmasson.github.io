@@ -62,7 +62,10 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-window.addEventListener( 'vrdisplaypresentchange', function() { drone.play(); } );
+var isPresenting = false;
+
+window.addEventListener( 'vrdisplaypresentchange',
+ function() { isPresenting = !isPresenting; drone.play(); } );
 
 var n = 10; // number of bodies
 
@@ -180,7 +183,7 @@ function render() {
           velocities[i].sub( normal );
           velocities[j].add( normal );
 
-          ping.cloneNode().play();
+          if ( isPresenting ) ping.cloneNode().play();
 
          }
 
