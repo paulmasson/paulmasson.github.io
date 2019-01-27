@@ -26,6 +26,7 @@
 <script src="js/VRController.js"></script>
 
 <audio src="audio/space-drone.mp3" id="drone" loop></audio>
+<audio src="audio/space-ping.mp3" id="ping"></audio>
 
 <script>
 
@@ -177,7 +178,9 @@ function render() {
           normal = normal.multiplyScalar( dot );
 
           velocities[i].sub( normal );
-           velocities[j].add( normal );
+          velocities[j].add( normal );
+
+          ping.cloneNode().play();
 
          }
 
