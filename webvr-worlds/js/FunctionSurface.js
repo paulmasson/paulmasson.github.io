@@ -24,7 +24,7 @@ function functionSurface( vector, xRange, yRange, options ) {
   if ( !( 'color' in options ) ) options.color = 'rgb(0,127,255)';
   if ( !( 'opacity' in options ) ) options.opacity = 1;
 
-  var zMin = -1000, zMax = 1000;
+  var zMin = -500, zMax = 500;
 
   var slices = xRange.length < 3 ? 50 : xRange[2];
   var xStep = ( xRange[1] - xRange[0] ) / slices;
