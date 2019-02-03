@@ -9,6 +9,21 @@
 
 <body style="margin: 0px; overflow: hidden">
 
+<div style="position: absolute; margin: .25in; padding: .25in; background-color: white">
+Function part:
+<input name=part type=radio value=re onchange="drawSurface()" checked/>
+  <label>re</label>
+<input name=part type=radio value=im onchange=drawSurface()/>
+  <label>im</label>
+<input name=part type=radio value=abs onchange="drawSurface()"/>
+  <label>abs</label>
+<br/><br/>
+Re(<i>m</i>): <input type=number id=re value=.5 step=.01
+                     onchange="drawSurface()" style="width: .5in"/> &nbsp;&nbsp;
+Im(<i>m</i>): <input type=number id=im value=0 step=.01
+                     onchange="drawSurface()" style="width: .5in"/>
+</div>
+
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
 
@@ -43,15 +58,27 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-var m = .5;
+var surface;
+drawSurface();
 
-var surface = functionSurface( (x,y) => [ x, y, sn( C(x,y), m ) ], [-9.999,9.999,251], [-9.999,9.999,251],
-                               { complexFunction: 're', colormap: 'complexArgument' } )
-// setting camera up not work
-surface.rotation.z = pi;
-surface.rotation.x = -pi/2;
+function drawSurface( part ) {
 
-scene.add( surface );
+  scene.remove( surface );
+
+  var part = document.querySelector( 'input[name=part]:checked' ).value;
+
+  var re = +document.getElementById( 're' ).value;
+  var im = +document.getElementById( 'im' ).value;
+
+  surface = functionSurface( (x,y) => [ x, y, sn( C(x,y), C(re,im) ) ], [-9.999,9.999,251], [-9.999,9.999,251],
+                             { complexFunction: part, colormap: 'complexArgument' } )
+  // setting camera up not work
+  surface.rotation.z = pi;
+  surface.rotation.x = -pi/2;
+
+  scene.add( surface );
+
+}
 
 controller.rig.position.set( 0, 0, 15 );
 
@@ -64,7 +91,6 @@ function render() {
 
 }
 
-// no animation frame!
 renderer.setAnimationLoop( render );
 
 </script>
