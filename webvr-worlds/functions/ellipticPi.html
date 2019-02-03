@@ -90,7 +90,7 @@ function drawSurface( part ) {
     var im2 = +document.getElementById( 'im2' ).value;
 
     surface = functionSurface( (x,y) => [ x, y, ellipticPi( C(re1,im1), C(x,y), C(re2,im2) ) ],
-                               [-10,10,251], [-10,10,251],
+                               [-10,10,201], [-10,10,201],
                                { complexFunction: part, colormap: 'complexArgument' } )
     // setting camera up not work
     surface.rotation.z = pi;

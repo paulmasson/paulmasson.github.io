@@ -20,11 +20,11 @@
 [Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselJ.html)<br>
 [Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselY.html)<br>
 [Modified Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselI.html)<br>
-[Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)
+[Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)<br>
 [Hankel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/hankel1.html)<br>
 [Hankel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/hankel2.html)<br>
 [Airy function of first kind](https://paulmasson.github.io/webvr-worlds/functions/airyAi.html)<br>
-[Airy function of second kind](https://paulmasson.github.io/webvr-worlds/functions/airyBi.html)<br>
+[Airy function of second kind](https://paulmasson.github.io/webvr-worlds/functions/airyBi.html)
 
 [Elliptic integral of first kind](https://paulmasson.github.io/webvr-worlds/functions/ellipticF.html)<br>
 [Elliptic integral of second kind](https://paulmasson.github.io/webvr-worlds/functions/ellipticE.html)<br>

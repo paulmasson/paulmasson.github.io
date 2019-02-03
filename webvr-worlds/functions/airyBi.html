@@ -73,7 +73,7 @@ function drawSurface() {
 
     var part = document.querySelector( 'input[name=part]:checked' ).value;
 
-    surface = functionSurface( (x,y) => [ x, y, airyBi( C(x,y) ) ], [-10,10,251], [-10,10,251],
+    surface = functionSurface( (x,y) => [ x, y, airyBi( C(x,y) ) ], [-10,10,201], [-10,10,201],
                                { complexFunction: part, colormap: 'complexArgument' } )
     // setting camera up not work
     surface.rotation.z = pi;
@@ -87,7 +87,7 @@ function drawSurface() {
 
 }
 
-controller.rig.position.set( 0, 0, 15 );
+controller.rig.position.set( 0, 0, 25 );
 
 scene.add( new THREE.AmbientLight() );
 
