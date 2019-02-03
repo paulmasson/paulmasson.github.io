@@ -24,6 +24,13 @@ Im(<i>m</i>): <input type=number id=im value=0 step=.01
                      onchange="drawSurface()" style="width: .5in"/>
 </div>
 
+<div id="calculating"
+     style="width: 7in; height: 2in; margin: auto;
+            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+            z-index: 1; visibility: visible; background-color: transparent;
+            color: white; font-size: 8em; text-align: center; line-height: 2in">
+calculating</div>
+
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
 
@@ -63,14 +70,16 @@ drawSurface();
 
 function drawSurface( part ) {
 
-  scene.remove( surface );
-
-  var part = document.querySelector( 'input[name=part]:checked' ).value;
-
-  var re = +document.getElementById( 're' ).value;
-  var im = +document.getElementById( 'im' ).value;
+  calculating.style.visibility = 'visible';
 
   setTimeout( function() {
+
+    scene.remove( surface );
+
+    var part = document.querySelector( 'input[name=part]:checked' ).value;
+
+    var re = +document.getElementById( 're' ).value;
+    var im = +document.getElementById( 'im' ).value;
 
     surface = functionSurface( (x,y) => [ x, y, dn( C(x,y), C(re,im) ) ], [-10,10,251], [-10,10,251],
                                { complexFunction: part, colormap: 'complexArgument' } )
@@ -79,6 +88,8 @@ function drawSurface( part ) {
     surface.rotation.x = -pi/2;
 
     scene.add( surface );
+
+    calculating.style.visibility = 'hidden';
 
   }, 10 );
 

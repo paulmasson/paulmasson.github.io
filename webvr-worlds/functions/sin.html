@@ -19,6 +19,13 @@ Function part:
   <label>abs</label>
 </div>
 
+<div id="calculating"
+     style="width: 7in; height: 2in; margin: auto;
+            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+            z-index: 1; visibility: visible; background-color: transparent;
+            color: white; font-size: 8em; text-align: center; line-height: 2in">
+calculating</div>
+
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
 
@@ -58,11 +65,13 @@ drawSurface();
 
 function drawSurface() {
 
-  scene.remove( surface );
-
-  var part = document.querySelector( 'input[name=part]:checked' ).value;
+  calculating.style.visibility = 'visible';
 
   setTimeout( function() {
+
+    scene.remove( surface );
+
+    var part = document.querySelector( 'input[name=part]:checked' ).value;
 
     surface = functionSurface( (x,y) => [ x, y, sin( C(x,y) ) ], [-10,10,251], [-10,10,251],
                                { complexFunction: part, colormap: 'complexArgument' } )
@@ -71,6 +80,8 @@ function drawSurface() {
     surface.rotation.x = -pi/2;
 
     scene.add( surface );
+
+    calculating.style.visibility = 'hidden';
 
   }, 10 );
 
