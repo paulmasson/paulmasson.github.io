@@ -62,13 +62,17 @@ function drawSurface() {
 
   var part = document.querySelector( 'input[name=part]:checked' ).value;
 
-  surface = functionSurface( (x,y) => [ x, y, tanh( C(x,y) ) ], [-10,10,251], [-10,10,251],
-                             { complexFunction: part, colormap: 'complexArgument' } )
-  // setting camera up not work
-  surface.rotation.z = pi;
-  surface.rotation.x = -pi/2;
+  setTimeout( function() {
 
-  scene.add( surface );
+    surface = functionSurface( (x,y) => [ x, y, tanh( C(x,y) ) ], [-10,10,251], [-10,10,251],
+                               { complexFunction: part, colormap: 'complexArgument' } )
+    // setting camera up not work
+    surface.rotation.z = pi;
+    surface.rotation.x = -pi/2;
+
+    scene.add( surface );
+
+  }, 10 );
 
 }
 

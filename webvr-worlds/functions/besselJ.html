@@ -70,13 +70,17 @@ function drawSurface( part ) {
   var re = +document.getElementById( 're' ).value;
   var im = +document.getElementById( 'im' ).value;
 
-  surface = functionSurface( (x,y) => [ x, y, besselJ( C(re,im), C(x,y) ) ], [-10,10,251], [-10,10,251],
-                             { complexFunction: part, colormap: 'complexArgument' } )
-  // setting camera up not work
-  surface.rotation.z = pi;
-  surface.rotation.x = -pi/2;
+  setTimeout( function() {
 
-  scene.add( surface );
+    surface = functionSurface( (x,y) => [ x, y, besselJ( C(re,im), C(x,y) ) ], [-10,10,251], [-10,10,251],
+                               { complexFunction: part, colormap: 'complexArgument' } )
+    // setting camera up not work
+    surface.rotation.z = pi;
+    surface.rotation.x = -pi/2;
+
+    scene.add( surface );
+
+  }, 10 );
 
 }
 
