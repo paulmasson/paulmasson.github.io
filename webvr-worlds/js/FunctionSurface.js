@@ -1,4 +1,24 @@
 
+function roundTo( x, n, significant=true ) {
+
+  if ( x === 0 ) return x;
+
+  if ( Array.isArray(x) ) {
+    var v = [];
+    for ( var i = 0 ; i < x.length ; i++ ) v[i] = roundTo( x[i], n, significant );
+    return v;
+  }
+
+  if ( significant ) {
+    var exponent = Math.floor( Math.log10( Math.abs(x) ) );
+    n = n - exponent - 1;
+  }
+
+  return Math.round( 10**n * x ) / 10**n;
+
+}
+
+
 function functionSurface( vector, xRange, yRange, options ) {
 
   if ( !( 'color' in options ) ) options.color = 'rgb(0,127,255)';
@@ -46,6 +66,9 @@ function functionSurface( vector, xRange, yRange, options ) {
       else options.colors.push( options.colormap(x,y) );
     }
   }
+
+  vertices = roundTo( vertices, 3, false ); // reduce raw data size
+  if ( 'colors' in options ) options.colors = roundTo( options.colors, 3 );
 
   var faces = [];
   var count = slices + 1;
