@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hankel Function of Second Kind</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<div style="position: absolute; margin: .25in; padding: .25in; background-color: white">
+Function part:
+<input name=part type=radio value=re onchange="drawSurface()" checked/>
+  <label>re</label>
+<input name=part type=radio value=im onchange="drawSurface()"/>
+  <label>im</label>
+<input name=part type=radio value=abs onchange="drawSurface()"/>
+  <label>abs</label>
+<br/><br/>
+Re(<i>n</i>): <input type=number id=re value=-1.5 step=.01
+                     onchange="drawSurface()" style="width: .5in"/> &nbsp;&nbsp;
+Im(<i>n</i>): <input type=number id=im value=0 step=.01
+                     onchange="drawSurface()" style="width: .5in"/>
+</div>
+
+<div id="calculating"
+     style="width: 7in; height: 2in; margin: auto;
+            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+            z-index: 1; visibility: visible; background-color: transparent;
+            color: white; font-size: 8em; text-align: center; line-height: 2in">
+calculating</div>
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="https://paulmasson.github.io/math/build/math.js"></script>
+
+<script src="../js/FunctionSurface.js"></script>
+<script src="../js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var surface;
+drawSurface();
+
+function drawSurface( part ) {
+
+  calculating.style.visibility = 'visible';
+
+  setTimeout( function() {
+
+    scene.remove( surface );
+
+    var part = document.querySelector( 'input[name=part]:checked' ).value;
+
+    var re = +document.getElementById( 're' ).value;
+    var im = +document.getElementById( 'im' ).value;
+
+    surface = functionSurface( (x,y) => [ x, y, hankel2( C(re,im), C(x,y) ) ], [-10,10,251], [-10,10,251],
+                               { complexFunction: part, colormap: 'complexArgument' } )
+    // setting camera up not work
+    surface.rotation.z = pi;
+    surface.rotation.x = -pi/2;
+
+    scene.add( surface );
+
+    calculating.style.visibility = 'hidden';
+
+  }, 10 );
+
+}
+
+controller.rig.position.set( 0, 0, 15 );
+
+scene.add( new THREE.AmbientLight() );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update()
+
+}
+
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

@@ -18,6 +18,10 @@
 [Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselY.html)<br>
 [Modified Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselI.html)<br>
 [Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)
+[Hankel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/hankel1.html)<br>
+[Hankel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/hankel2.html)<br>
+[Airy function of first kind](https://paulmasson.github.io/webvr-worlds/functions/airyAi.html)<br>
+[Airy function of second kind](https://paulmasson.github.io/webvr-worlds/functions/airyBi.html)<br>
 
 [Jacobi elliptic sine](https://paulmasson.github.io/webvr-worlds/functions/sn.html)<br>
 [Jacobi elliptic cosine](https://paulmasson.github.io/webvr-worlds/functions/cn.html)<br>
