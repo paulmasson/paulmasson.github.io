@@ -28,9 +28,13 @@
 
 [Jacobi elliptic sine](https://paulmasson.github.io/webvr-worlds/functions/sn.html)<br>
 [Jacobi elliptic cosine](https://paulmasson.github.io/webvr-worlds/functions/cn.html)<br>
-[Jacobi delta amplitude](https://paulmasson.github.io/webvr-worlds/functions/dn.html)
+[Jacobi delta amplitude](https://paulmasson.github.io/webvr-worlds/functions/dn.html)<br>
+[Jacobi amplitude](https://paulmasson.github.io/webvr-worlds/functions/am.html)
 
 [Gamma function](https://paulmasson.github.io/webvr-worlds/functions/gamma.html)<br>
-[Riemann Zeta function](https://paulmasson.github.io/webvr-worlds/functions/zeta.html)
+[Logarithm of gamma function](https://paulmasson.github.io/webvr-worlds/functions/logGamma.html)
+
+[Riemann Zeta function](https://paulmasson.github.io/webvr-worlds/functions/zeta.html)<br/>
+[Dirichlet Eta function](https://paulmasson.github.io/webvr-worlds/functions/diricheltEta.html)
 
 Navigation control is available for thumbpads. Rotate left and right by holding down the appropriate side of the thumbpad. Move forward and backward in the direction of the WebVR camera by holding down the upper or lower part of the thumbpad.
