@@ -1,5 +1,13 @@
 # Special Functions in WebVR
 
+[Circular sine](https://paulmasson.github.io/webvr-worlds/functions/sin.html)<br>
+[Circular cosine](https://paulmasson.github.io/webvr-worlds/functions/cos.html)<br>
+[Circular tangent](https://paulmasson.github.io/webvr-worlds/functions/tan.html)
+
+[Hyperbolic sine](https://paulmasson.github.io/webvr-worlds/functions/sinh.html)<br>
+[Hyperbolic cosine](https://paulmasson.github.io/webvr-worlds/functions/cosh.html)<br>
+[Hyperbolic tangent](https://paulmasson.github.io/webvr-worlds/functions/tanh.html)
+
 [Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselJ.html)<br>
 [Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselY.html)<br>
 [Modified Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselI.html)<br>
