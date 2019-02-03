@@ -1,5 +1,8 @@
 # Special Functions in WebVR
 
+[Exponential function](https://paulmasson.github.io/webvr-worlds/functions/exp.html)<br>
+[Natural logarithm](https://paulmasson.github.io/webvr-worlds/functions/log.html)
+
 [Circular sine](https://paulmasson.github.io/webvr-worlds/functions/sin.html)<br>
 [Circular cosine](https://paulmasson.github.io/webvr-worlds/functions/cos.html)<br>
 [Circular tangent](https://paulmasson.github.io/webvr-worlds/functions/tan.html)<br>
