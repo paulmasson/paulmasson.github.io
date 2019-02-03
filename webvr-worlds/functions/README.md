@@ -26,6 +26,11 @@
 [Airy function of first kind](https://paulmasson.github.io/webvr-worlds/functions/airyAi.html)<br>
 [Airy function of second kind](https://paulmasson.github.io/webvr-worlds/functions/airyBi.html)<br>
 
+[Elliptic integral of first kind](https://paulmasson.github.io/webvr-worlds/functions/ellipticF.html)<br>
+[Elliptic integral of second kind](https://paulmasson.github.io/webvr-worlds/functions/ellipticE.html)<br>
+[Elliptic integral of third kind](https://paulmasson.github.io/webvr-worlds/functions/ellipticPi.html)<br>
+[Jacobi zeta function](https://paulmasson.github.io/webvr-worlds/functions/jacobiZeta.html)
+
 [Jacobi elliptic sine](https://paulmasson.github.io/webvr-worlds/functions/sn.html)<br>
 [Jacobi elliptic cosine](https://paulmasson.github.io/webvr-worlds/functions/cn.html)<br>
 [Jacobi delta amplitude](https://paulmasson.github.io/webvr-worlds/functions/dn.html)<br>
