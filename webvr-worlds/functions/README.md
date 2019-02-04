@@ -12,7 +12,7 @@
 
 [Hyperbolic sine](https://paulmasson.github.io/webvr-worlds/functions/sinh.html)<br>
 [Hyperbolic cosine](https://paulmasson.github.io/webvr-worlds/functions/cosh.html)<br>
-[Hyperbolic tangent](https://paulmasson.github.io/webvr-worlds/functions/tanh.html)
+[Hyperbolic tangent](https://paulmasson.github.io/webvr-worlds/functions/tanh.html)<br>
 [Hyperbolic cotangent](https://paulmasson.github.io/webvr-worlds/functions/coth.html)<br>
 [Hyperbolic secant](https://paulmasson.github.io/webvr-worlds/functions/sech.html)<br>
 [Hyperbolic cosecant](https://paulmasson.github.io/webvr-worlds/functions/csch.html)
