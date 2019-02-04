@@ -20,9 +20,11 @@
 [Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselJ.html)<br>
 [Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselY.html)<br>
 [Modified Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselI.html)<br>
-[Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)<br>
+[Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)
+
 [Hankel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/hankel1.html)<br>
-[Hankel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/hankel2.html)<br>
+[Hankel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/hankel2.html)
+
 [Airy function of first kind](https://paulmasson.github.io/webvr-worlds/functions/airyAi.html)<br>
 [Airy function of second kind](https://paulmasson.github.io/webvr-worlds/functions/airyBi.html)
 
@@ -40,6 +42,6 @@
 [Logarithm of gamma function](https://paulmasson.github.io/webvr-worlds/functions/logGamma.html)
 
 [Riemann Zeta function](https://paulmasson.github.io/webvr-worlds/functions/zeta.html)<br/>
-[Dirichlet Eta function](https://paulmasson.github.io/webvr-worlds/functions/diricheltEta.html)
+[Dirichlet Eta function](https://paulmasson.github.io/webvr-worlds/functions/dirichletEta.html)
 
 Navigation control is available for thumbpads. Rotate left and right by holding down the appropriate side of the thumbpad. Move forward and backward in the direction of the WebVR camera by holding down the upper or lower part of the thumbpad.
