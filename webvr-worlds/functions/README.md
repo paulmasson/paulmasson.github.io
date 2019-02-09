@@ -38,6 +38,8 @@
 [Jacobi delta amplitude](https://paulmasson.github.io/webvr-worlds/functions/dn.html)<br>
 [Jacobi amplitude](https://paulmasson.github.io/webvr-worlds/functions/am.html)
 
+[Weierstrass Elliptic Function](https://paulmasson.github.io/webvr-worlds/functions/weierstrassP.html)
+
 [Gamma function](https://paulmasson.github.io/webvr-worlds/functions/gamma.html)<br>
 [Logarithm of gamma function](https://paulmasson.github.io/webvr-worlds/functions/logGamma.html)
 
