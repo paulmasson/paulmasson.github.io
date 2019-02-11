@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Schwarz Primitive Surface</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="https://paulmasson.github.io/mathcell/build/mathcell.js"></script>
+<script src="js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+controller.rig.position.set( 0, -1.5, 0 )
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var range = 4*Math.PI;
+
+var s = isosurface( (x,y,z) => Math.cos(x) + Math.cos(y) + Math.cos(z),
+                    [-range,range,100], [-range,range,100], [-range,range,100] )[0];
+
+
+var geometry = new THREE.Geometry();
+for ( var i = 0 ; i < s.vertices.length ; i++ ) {
+  var v = s.vertices[i];
+  geometry.vertices.push( new THREE.Vector3( v[0], v[1], v[2] ) );
+}
+for ( var i = 0 ; i < s.faces.length ; i++ ) {
+  var f = s.faces[i];
+  for ( var j = 0 ; j < f.length - 2 ; j++ )
+    geometry.faces.push( new THREE.Face3( f[0], f[j+1], f[j+2] ) );
+}
+geometry.computeVertexNormals();
+
+var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } );
+
+var schwarz = new THREE.Mesh( geometry, material );
+scene.add( schwarz );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+}
+
+// no animation frame!
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>
