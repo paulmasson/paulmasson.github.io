@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Catenoid Structure</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="https://paulmasson.github.io/mathcell/build/mathcell.js"></script>
+<script src="js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var hScale = 4;
+var vScale = 3;
+controller.rig.position.set( 0, 2*vScale, 4*hScale )
+
+function octant( angle ) {
+
+  while ( angle > Math.PI/2) angle = angle - Math.PI/2;
+  if (( angle > Math.PI/4 ) && ( angle <= Math.PI/2 )) angle = Math.PI/2 - angle;
+  return angle;
+
+}
+
+function catenoid( u, v, target ) {
+
+  var t = 2 * u - 1; // minus one to one
+  var phi = 2 * Math.PI * v;
+
+  var r = hScale * Math.cosh(2*t)  / Math.cosh(2);
+
+  if ( u === 0 || u === 1 ) {
+    r /= Math.cos( octant(phi) ); // creates square corners
+    target.set( r * Math.cos(phi), vScale * t,  r * Math.sin(phi) );
+  } else
+    target.set( r * Math.cos(phi), vScale * t, r * Math.sin(phi) );
+
+}
+
+var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } );
+
+function addCatenoid( x, y, z ) {
+
+  var geometry = new THREE.ParametricGeometry( catenoid, 20, 80 );
+  var c = new THREE.Mesh( geometry, material );
+  c.position.set( x, y, z );
+  scene.add( c );
+
+}
+
+var h = 2 * hScale, v = 2 * vScale;
+
+var grid = [ [0,0,0], [1,0,1], [1,0,-1], [-1,0,1], [-1,0,-1],
+           [ 1,1,0], [-1,1,0], [0,1,1], [0,1,-1],
+           [ 1,-1,0], [-1,-1,0], [0,-1,1], [0,-1,-1],
+           [0,2,0], [0,-2,0] ];
+
+grid.forEach( p => addCatenoid( p[0]*h, p[1]*v, p[2]*h ) );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+}
+
+// no animation frame!
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

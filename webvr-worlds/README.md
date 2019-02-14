@@ -7,8 +7,10 @@ Beginning experiences:
 [A Sky of Glowing Balls](https://paulmasson.github.io/webvr-worlds/sky-of-glows.html)
 
 [Flat Torus](https://paulmasson.github.io/webvr-worlds/flat-torus.html)<br>
-[Lorenz Attractor](https://paulmasson.github.io/webvr-worlds/lorenz-attractor.html)<br>
-[Schwarz Primitive Minimal Surface](https://paulmasson.github.io/webvr-worlds/schwarz-surface.html)
+[Lorenz Attractor](https://paulmasson.github.io/webvr-worlds/lorenz-attractor.html)
+
+[Schwarz Primitive Minimal Surface](https://paulmasson.github.io/webvr-worlds/schwarz-surface.html)<br>
+[Catenoid Structure](https://paulmasson.github.io/webvr-worlds/catenoid-structure.html)
 
 [Gravitating System](https://paulmasson.github.io/webvr-worlds/gravitating-system.html)
 
