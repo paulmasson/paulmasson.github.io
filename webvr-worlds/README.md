@@ -10,7 +10,7 @@ Beginning experiences:
 [Lorenz Attractor](https://paulmasson.github.io/webvr-worlds/lorenz-attractor.html)
 
 [Schwarz Primitive Minimal Surface](https://paulmasson.github.io/webvr-worlds/schwarz-surface.html)<br>
-[Catenoid Structure](https://paulmasson.github.io/webvr-worlds/catenoid-structure.html)
+[Cube of Catenoids](https://paulmasson.github.io/webvr-worlds/catenoid-cube.html)
 
 [Gravitating System](https://paulmasson.github.io/webvr-worlds/gravitating-system.html)
 

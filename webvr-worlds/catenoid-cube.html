@@ -40,9 +40,9 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-var hScale = 4;
-var vScale = 3;
-controller.rig.position.set( 0, 2*vScale, 4*hScale )
+var hScale = 8;
+var vScale = 6;
+controller.rig.position.set( 0, vScale, 4*hScale )
 
 function octant( angle ) {
 
@@ -57,35 +57,56 @@ function catenoid( u, v, target ) {
   var t = 2 * u - 1; // minus one to one
   var phi = 2 * Math.PI * v;
 
-  var r = hScale * Math.cosh(2*t)  / Math.cosh(2);
+  var r = hScale / 2 * Math.cosh(2*t)  / Math.cosh(2);
 
   if ( u === 0 || u === 1 ) {
     r /= Math.cos( octant(phi) ); // creates square corners
-    target.set( r * Math.cos(phi), vScale * t,  r * Math.sin(phi) );
+    target.set( r * Math.cos(phi), vScale / 2 * t,  r * Math.sin(phi) );
   } else
-    target.set( r * Math.cos(phi), vScale * t, r * Math.sin(phi) );
+    target.set( r * Math.cos(phi), vScale / 2 * t, r * Math.sin(phi) );
 
 }
 
-var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } );
+var material = new THREE.MeshBasicMaterial( { side: THREE.DoubleSide, vertexColors: THREE.VertexColors } );
 
 function addCatenoid( x, y, z ) {
 
-  var geometry = new THREE.ParametricGeometry( catenoid, 20, 80 );
+  var radiusSteps = 20, angleSteps = 80;
+
+  var geometry = new THREE.ParametricGeometry( catenoid, radiusSteps, angleSteps );
+
+  // assign phase colors in same order as vertices
+  for ( var i = 0 ; i <= angleSteps ; i++ ) {
+    var v = i / angleSteps;
+    for ( var j = 0 ; j <= radiusSteps ; j++ ) {
+      var u = j / radiusSteps;
+      geometry.colors[ i * (radiusSteps+1) + j ]
+		= new THREE.Color().setHSL( 4*v % 1, 1, .5);
+    }
+  }
+
+  // meshes pass colors via faces
+  for ( var i = 0 ; i < geometry.faces.length ; i++ ) {
+    var face = geometry.faces[i];
+    face.vertexColors = [ geometry.colors[face.a], geometry.colors[face.b], geometry.colors[face.c] ];
+  }
+
   var c = new THREE.Mesh( geometry, material );
   c.position.set( x, y, z );
   scene.add( c );
 
 }
 
-var h = 2 * hScale, v = 2 * vScale;
+var grid = [], size = 2;
+for ( var i = -size ; i <= size ; i++ )
+  for ( var j = -size ; j <= size ; j++ )
+    for ( var k = -size ; k <= size ; k++ )
+      if ( !( (i+j+k) & 1 ) ) grid.push( [i,j,k] );
 
-var grid = [ [0,0,0], [1,0,1], [1,0,-1], [-1,0,1], [-1,0,-1],
-           [ 1,1,0], [-1,1,0], [0,1,1], [0,1,-1],
-           [ 1,-1,0], [-1,-1,0], [0,-1,1], [0,-1,-1],
-           [0,2,0], [0,-2,0] ];
+grid.forEach( p => addCatenoid( p[0]*hScale, p[1]*vScale, p[2]*hScale ) );
 
-grid.forEach( p => addCatenoid( p[0]*h, p[1]*v, p[2]*h ) );
+var ambient = new THREE.AmbientLight( 0xffffff );
+scene.add( ambient );
 
 function render() {
 
