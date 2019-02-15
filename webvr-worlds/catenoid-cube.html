@@ -69,7 +69,7 @@ function catenoid( u, v, target ) {
 
 var material = new THREE.MeshBasicMaterial( { side: THREE.DoubleSide, vertexColors: THREE.VertexColors } );
 
-function addCatenoid( x, y, z ) {
+function addCatenoid( x, y, z, winding ) {
 
   var radiusSteps = 20, angleSteps = 80;
 
@@ -81,7 +81,7 @@ function addCatenoid( x, y, z ) {
     for ( var j = 0 ; j <= radiusSteps ; j++ ) {
       var u = j / radiusSteps;
       geometry.colors[ i * (radiusSteps+1) + j ]
-		= new THREE.Color().setHSL( 4*v % 1, 1, .5);
+		= new THREE.Color().setHSL( 2 * v * winding, 1, .5);
     }
   }
 
@@ -103,10 +103,13 @@ for ( var i = -size ; i <= size ; i++ )
     for ( var k = -size ; k <= size ; k++ )
       if ( !( (i+j+k) & 1 ) ) grid.push( [i,j,k] );
 
-grid.forEach( p => addCatenoid( p[0]*hScale, p[1]*vScale, p[2]*hScale ) );
+grid.forEach( p => addCatenoid( p[0]*hScale, p[1]*vScale, p[2]*hScale,
+                                p[1] & 1 ? -1 : 1 ) );
+
 
 var ambient = new THREE.AmbientLight( 0xffffff );
 scene.add( ambient );
+
 
 function render() {
 
