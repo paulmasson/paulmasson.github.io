@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>A Toroidal Space Full of Spheres</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+
+<script src="js/VRController.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+controller.moveRate = .8;
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var scale = 60;
+
+var spheres = [];
+var sphere = new THREE.SphereGeometry( .15, 30, 30 );
+
+for ( var i = 0 ; i < 500 ; i++ ) {
+
+  var material = new THREE.MeshStandardMaterial( { color: 'hsl(' + 360*Math.random() + ',100%,50%)' } );
+
+  var mesh = new THREE.Mesh( sphere, material );
+  mesh.position.set( scale, scale, scale );
+
+  while ( mesh.position.length() > scale ) {
+    mesh.position.x = scale * ( 1 - 2 * Math.random() );
+    mesh.position.y = scale * ( 1 - 2 * Math.random() );
+    mesh.position.z = scale * ( 1 - 2 * Math.random() );
+  }
+
+  spheres.push( mesh );
+  scene.add( mesh );
+
+}
+
+var ambient = new THREE.AmbientLight( 0x777777 );
+scene.add( ambient );
+
+var point = new THREE.PointLight();
+controller.rig.add( point );
+
+var scratch = new THREE.Vector3();
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+  spheres.forEach( s => {
+    scratch.copy( controller.rig.position ).sub( s.position );
+    if ( scratch.length() > scale ) s.position.add( scratch.normalize().multiplyScalar(2*scale) );
+  } );
+
+}
+
+// no animation frame!
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

@@ -6,6 +6,8 @@ Beginning experiences:
 [A Sky Full of Spheres](https://paulmasson.github.io/webvr-worlds/sky-of-spheres.html)<br>
 [A Sky of Glowing Balls](https://paulmasson.github.io/webvr-worlds/sky-of-glows.html)
 
+[A Toroidal Space Full of Spheres](https://paulmasson.github.io/webvr-worlds/toroidal-space.html) &mdash; you&rsquo;ll never escape!
+
 [Flat Torus](https://paulmasson.github.io/webvr-worlds/flat-torus.html)<br>
 [Lorenz Attractor](https://paulmasson.github.io/webvr-worlds/lorenz-attractor.html)
 
