@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Flock of Spheres</title>
+<meta charset=utf-8>
+<meta name=viewport content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
+<meta name=author content='Paul Masson'>
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js></script>
+
+<script src="js/VRController.js"></script>
+
+<audio src="audio/parakeets.mp3" id="drone" loop></audio>
+
+<script>
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+controller.rig.position.set( 0, -1.5, 5 );
+controller.turnRate = .03;
+scene.add( controller.rig );
+
+var light = new THREE.PointLight( 0xffffff, .8 );
+scene.add( light );
+
+var ambient = new THREE.AmbientLight( 0x555555 );
+scene.add( ambient );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var isPresenting = false;
+
+window.addEventListener( 'vrdisplaypresentchange',
+ function() { isPresenting = !isPresenting; drone.play(); } );
+
+var n = 100; // number of bodies
+var motionStrength = .001;
+
+var radius = .03;
+var range = 4;
+var velocityScale = 10;
+var maxVelocity = 20;
+
+var collisionRange = 4 * radius;
+var collisionStrength = 2;
+var alignmentRange = 200 * radius;
+var alignmentStrength = 10;
+var cohesionStrength = .01;
+
+var scratch = new THREE.Vector3();
+var alignment = new THREE.Vector3();
+
+var spheres = [], positions = [], velocities = [];
+
+var normal = new THREE.Vector3();
+var relativeVelocity = new THREE.Vector3();
+
+for ( var i = 0 ; i < n ; i++ ) {
+
+  var geometry = new THREE.SphereGeometry( radius, 20, 20 );
+
+  var material = new THREE.MeshPhongMaterial();
+  material.color = new THREE.Color().setHSL( Math.random(), 1, .5 );
+
+  var mesh = new THREE.Mesh( geometry, material );
+  spheres.push( mesh );
+  scene.add( mesh );
+
+  positions.push( new THREE.Vector3( 2*Math.random()-1, 2*Math.random()-1,
+                                       2*Math.random()-1 ).multiplyScalar( range ) );
+
+  velocities.push( new THREE.Vector3( 2*Math.random()-1, 2*Math.random()-1,
+                                        2*Math.random()-1 ).multiplyScalar( velocityScale ) );
+
+}
+
+var geometry = new THREE.Geometry();
+
+for ( var i = 0 ; i < 1000 ; i++ ) {
+
+  var v = new THREE.Vector3( 1 - 2 * Math.random(),
+                             1 - 2 * Math.random(),
+                             1 - 2 * Math.random() ).normalize();
+  geometry.vertices.push( v.multiplyScalar( 900 ) );
+
+}
+
+var stars = new THREE.Points( geometry, new THREE.PointsMaterial( { size: .01 } ) );
+scene.add( stars );
+
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update();
+
+  // update positions from current velocity
+
+  for ( var i = 0 ; i < n ; i++ ) {
+
+    var v = velocities[i];
+    scratch.set( v.x, v.y, v.z );
+
+    positions[i].add( scratch.multiplyScalar( motionStrength ) );
+
+    // avoid entering minimum separation zone
+    for ( var j = i + 1 ; j < n ; j++ ) {
+
+      scratch.copy( positions[i] ).sub( positions[j] );
+
+      // exchange normal velocities, leave tangential alone
+      if ( scratch.length() < collisionRange ) {
+
+        normal.copy( positions[i] ).sub( positions[j] ).normalize();
+
+        relativeVelocity.copy( velocities[i] ).sub( velocities[j] );
+        var dot = relativeVelocity.dot( normal );
+
+        normal = normal.multiplyScalar( dot * collisionStrength );
+
+        velocities[i].sub( normal );
+        velocities[j].add( normal );
+
+       }
+
+    }
+
+  }
+
+  // adjust velocities towards average and origin
+
+  for ( var i = 0 ; i < n ; i++ ) {
+
+    alignment.set( 0, 0, 0 );
+    var count = 0;
+
+    for ( var j = 0 ; j < n ; j++ ) {
+
+      var r = scratch.subVectors( positions[i], positions[j] ).length();
+
+      if ( r > 0 && r < alignmentRange ) {
+        alignment.add( velocities[j] );
+        count++;
+      }
+
+      if ( count > 0 ) {
+        alignment.multiplyScalar( 1 / count );
+        var v = velocities[i];
+        scratch.subVectors( velocities[i], alignment ).normalize().multiplyScalar( alignmentStrength );
+        v.add( scratch );
+        if ( v.length() > maxVelocity ) v = v.normalize().multiplyScalar( maxVelocity );
+      }
+
+    velocities[i].sub( scratch.copy( positions[i] ).normalize().multiplyScalar( cohesionStrength ) );
+
+    }
+
+  }
+
+  // update positions of spheres
+
+  for ( var i = 0 ; i < n ; i++ ) {
+
+    var v = positions[i];
+    spheres[i].position.set( v.x, v.y, v.z );
+    spheres[i].geometry.verticesNeedUpdate = true;
+
+  }
+
+}
+
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

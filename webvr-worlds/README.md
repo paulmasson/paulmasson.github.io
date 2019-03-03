@@ -15,6 +15,7 @@ Beginning experiences:
 [Cube of Catenoids](https://paulmasson.github.io/webvr-worlds/catenoid-cube.html)
 
 [Gravitating System](https://paulmasson.github.io/webvr-worlds/gravitating-system.html)
+[A Flock of Spheres](https://paulmasson.github.io/webvr-worlds/flock-of-spheres.html)
 
 [Special Functions in WebVR](functions)
 
