@@ -20,3 +20,5 @@ Beginning experiences:
 [Special Functions in WebVR](functions)
 
 Navigation control is available for thumbpads. Rotate left and right by holding down the appropriate side of the thumbpad. Move forward and backward in the direction of the WebVR camera by holding down the upper or lower part of the thumbpad.
+
+WASD navigation is also available for keyboard input. Rotate left and right with A and D, or forward and backward with W and S. Movement up and down is available with the up and down cursor keys.
