@@ -15,6 +15,8 @@ THREE.VRController = function( camera ) {
 
   window.addEventListener( 'keydown', function( event ) { that.key = event.key; } );
 
+  window.addEventListener( 'keyup', function( event ) { that.key = ''; } );
+
   this.update = function() {
 
     camera.getWorldDirection( direction );
@@ -55,28 +57,26 @@ THREE.VRController = function( camera ) {
       switch( this.key ) {
 
         case 'd':
+        case 'D':
           this.rig.rotation.y -= this.turnRate;
-          this.key = '';
           break;
         case 'a':
+        case 'A':
           this.rig.rotation.y += this.turnRate;
-          this.key = '';
           break;
         case 's':
+        case 'S':
           this.rig.position.add( direction.multiplyScalar( -this.moveRate ) );
-          this.key = '';
           break;
         case 'w':
+        case 'W':
           this.rig.position.add( direction.multiplyScalar( this.moveRate ) );
-          this.key = '';
           break;
         case 'ArrowUp':
           this.rig.position.y += this.moveRate;
-          this.key = '';
           break;
         case 'ArrowDown':
           this.rig.position.y -= this.moveRate;
-          this.key = '';
           break;
         default:
 
