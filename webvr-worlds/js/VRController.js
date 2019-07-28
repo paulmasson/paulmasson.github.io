@@ -25,7 +25,7 @@ THREE.VRController = function( camera ) {
 
     var gp = gamepads[0] ? gamepads[0] : null;
 
-    if ( gp !== null && gp.buttons[0].pressed ) {
+    if ( gp !== null && ( gp.buttons[0].pressed || gp.buttons[0].touched ) ) {
 
       var n = Math.round( 2 * Math.atan2( gp.axes[1], gp.axes[0] ) / Math.PI );
 

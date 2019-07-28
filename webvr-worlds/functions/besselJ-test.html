@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bessel Function of First Kind</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="author" content="Paul Masson">
+</head>
+
+<body style="margin: 0px; overflow: hidden">
+
+<div style="position: absolute; margin: .25in" >
+<div id="menu" onchange="updateMenu()"
+     style=" padding: .25in; background-color: white; opacity: 1;
+             font-family: Arial; font-weight: bold">
+Function part:
+<input name=part type=radio value=re checked>
+  <label>re</label></input>
+<input name=part type=radio value=im>
+  <label>im</label></input>
+<input name=part type=radio value=abs>
+  <label>abs</label></input>
+<br/><br/>
+Re(<i>n</i>): <input type=range id=re value=0 min=-10 max=10 step=.01
+                     onchange="reN.innerHTML=re.value" style="width: 1.5in"/>
+&nbsp;&nbsp; <span id=reN><script>document.write(re.value)</script></span>
+<br/><br/>
+Im(<i>n</i>): <input type=range id=im value=0 min=-10 max=10 step=.01
+                     onchange="imN.innerHTML=im.value" style="width: 1.5in"/>
+&nbsp;&nbsp; <span id=imN><script>document.write(im.value)</script></span>
+<span id="dot" style="background-color: white; border-radius: 50%; width: 10px; height: 10px;
+                      position: absolute; top: 0px; left: 0px; opacity: .5;
+                      pointer-events: none">&nbsp;</span>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r100/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r100/examples/js/vr/WebVR.js"></script>
+
+<script src="https://paulmasson.github.io/math/build/math.js"></script>
+
+<script src="../js/FunctionSurface.js"></script>
+<script src="../js/VRController.js"></script>
+
+<script>
+
+THREE.Vector3.prototype.setFromVector = function( v ) { this.x = v.x; this.y = v.y; this.z = v.z; }
+
+var scene = new THREE.Scene();
+
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement );
+
+renderer.vr.enabled = true;
+document.body.appendChild( WEBVR.createButton( renderer ) );
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+var controller = new THREE.VRController( camera );
+controller.rig.add( camera );
+scene.add( controller.rig );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var canvas = document.createElement( 'canvas' );
+
+var menuWidth = 2**Math.floor( Math.log2( menu.clientWidth ) );
+var menuHeight = 2**Math.floor( Math.log2( menu.clientHeight ) );
+var pixelRatio = Math.round( window.devicePixelRatio );
+
+canvas.width = menuWidth * pixelRatio;
+canvas.height = menuHeight * pixelRatio;
+canvas.style.width = menuWidth;
+canvas.style.height = menuHeight;
+
+var context = canvas.getContext( '2d' );
+context.fillStyle = 'white';
+context.fillRect( 0, 0, canvas.width, canvas.height );
+
+var plane = new THREE.PlaneGeometry( menu.clientWidth/300, menu.clientHeight/300 );
+var texture = new THREE.Texture( canvas );
+
+var menuInVR = new THREE.Mesh( plane, new THREE.MeshBasicMaterial( { map: texture, depthTest: false } ) );
+menuInVR.position.set( -1, 1.5, -2 );
+menuInVR.material.transparent = true;
+menuInVR.renderOrder = 1;
+controller.rig.add( menuInVR );
+
+var parser = new DOMParser();
+var serializer = new XMLSerializer();
+var image = document.createElement( 'img' );
+var surface;
+
+updateMenu();
+
+function updateMenu() {
+
+  var inputs = menu.getElementsByTagName( 'input' );
+
+  for ( var i = 0 ; i < inputs.length ; i++ ) {
+
+    var e = inputs[i];
+
+    switch( e.type ) {
+
+      case 'number': e.defaultValue = e.value; break;
+
+      case 'range': e.defaultValue = e.value; break;
+
+      case 'radio': e.checked ? e.setAttribute( 'checked', true ) : e.removeAttribute( 'checked' );
+
+    }
+
+  }
+
+  drawMenu();
+  drawSurface();
+
+}
+
+function drawMenu() {
+
+  var css = `
+input[type=radio] { width: 10px; height: 10px;
+                    background-color: white;
+                    border: 1px solid black; border-radius: 50%; }
+
+input[type=radio][checked] { background-color: black; }
+
+input[type=range] { background-color: red )
+  `;
+
+  var data =  `
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="${ menu.clientWidth }" height="${ menu.clientHeight }"
+     preserveAspectRatio="none">
+<defs><style type="text/css"> ${ css } </style></defs>
+<foreignObject width="100%" height="100%" style="background-color: white">
+<div xmlns="http://www.w3.org/1999/xhtml">
+${ menu.outerHTML }
+</div></foreignObject></svg>
+  `;
+
+  var doc = parser.parseFromString( data, 'text/html' );
+
+  var result = serializer.serializeToString( doc.body.children[0] );
+
+  image.onload = function () {
+    context.drawImage( image, 0, 0, canvas.width, canvas.height );
+    texture.needsUpdate = true;
+  }
+
+  // creating svg with Blob taints the canvas in Chrome
+  image.src = 'data:image/svg+xml;utf8,' + encodeURIComponent( result );
+
+}
+
+function drawSurface() {
+
+  menu.style.opacity = .5;
+  menuInVR.material.opacity = .5;
+  drawMenu();
+
+  setTimeout( function() {
+
+    scene.remove( surface );
+
+    var part = document.querySelector( 'input[name=part]:checked' ).value;
+
+    surface = functionSurface( (x,y) => [ x, y, besselJ( C(+re.value,+im.value), C(x,y) ) ], [-10,10,251], [-10,10,251],
+                               { complexFunction: part, colormap: 'complexArgument', zMinMax: 100 } )
+    // setting camera up not work
+    surface.rotation.z = pi;
+    surface.rotation.x = -pi/2;
+
+    scene.add( surface );
+
+    menu.style.opacity = 1;
+    menuInVR.material.opacity = 1;
+
+  }, 50 );
+
+}
+
+controller.rig.position.set( 0, 0, 15 );
+
+scene.add( new THREE.AmbientLight() );
+
+
+var hardware = renderer.vr.getController( 0 );
+var origin = new THREE.Vector3( .3, 1, -.2 ); // position of hardware in VR
+
+var line = new THREE.Geometry();
+line.vertices.push( origin, new THREE.Vector3() );
+line.colors.push( new THREE.Color( 0xffffff ), new THREE.Color( 0x777777 ) );
+
+var material = new THREE.LineBasicMaterial( { vertexColors: true, blending: THREE.AdditiveBlending } );
+
+var pointer = new THREE.LineSegments( line, material );
+pointer.frustumCulled = false;
+controller.rig.add( pointer );
+
+var scratch = new THREE.Vector3();
+
+var raycaster = new THREE.Raycaster( );
+
+function render() {
+
+  renderer.render( scene, camera );
+  controller.update()
+
+  menuInVR.visible = renderer.vr.isPresenting();
+  pointer.visible = renderer.vr.isPresenting();
+
+  // hardware quaterion is perpendicular to touchpad
+  line.vertices[1].set(0,0,-1).applyQuaternion( hardware.quaternion ).add( origin );
+  line.verticesNeedUpdate = true;
+
+  scratch.copy( origin ).applyQuaternion( controller.rig.quaternion );
+  raycaster.ray.origin.setFromVector( scratch );
+  raycaster.ray.origin.add( controller.rig.getWorldPosition( scratch ) );
+
+  scratch.copy( line.vertices[1] ).sub( line.vertices[0] )
+    .applyQuaternion( controller.rig.quaternion ).normalize();
+  raycaster.ray.direction.setFromVector( scratch );
+
+  var p = raycaster.intersectObject( menuInVR );
+
+  if ( p.length > 0 ) {
+
+    var x = menu.clientWidth * p[0].uv.x;
+    var y = menu.clientHeight * ( 1 - p[0].uv.y );
+
+    dot.style.left = x - 5 + 'px';
+    dot.style.top = y - 5 + 'px';
+    dot.style.backgroundColor = 'aqua';
+
+    var gamepads = navigator.getGamepads()
+    var gp = gamepads[0] ? gamepads[0] : null;
+
+    if ( gp !== null && ( gp.buttons[0].pressed || gp.buttons[1].pressed ) ) {
+
+      var menuRect = menu.getBoundingClientRect();
+      var elem = document.elementFromPoint( x + menuRect.x, y + menuRect.y );
+
+      // sliders not respond to click events...
+      if ( elem.type === 'range' ) {
+        var rangeRect = elem.getBoundingClientRect();
+        var value = ( +elem.max - +elem.min ) * ( x + menuRect.x - rangeRect.x ) / rangeRect.width + +elem.min;
+        elem.value = value;
+        elem.onchange();
+        updateMenu();
+      } else elem.click();
+
+    }
+
+  } else {
+
+    dot.style.left = '0px';
+    dot.style.top = '0px';
+    dot.style.backgroundColor = 'white';
+
+  }
+
+  drawMenu();
+
+}
+
+renderer.setAnimationLoop( render );
+
+</script>
+
+</body>
+</html>

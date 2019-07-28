@@ -18,6 +18,7 @@
 [Hyperbolic cosecant](https://paulmasson.github.io/webvr-worlds/functions/csch.html)
 
 [Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselJ.html)<br>
+[Bessel function of first kind - testing](https://paulmasson.github.io/webvr-worlds/functions/besselJ-test.html)<br>
 [Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselY.html)<br>
 [Modified Bessel function of first kind](https://paulmasson.github.io/webvr-worlds/functions/besselI.html)<br>
 [Modified Bessel function of second kind](https://paulmasson.github.io/webvr-worlds/functions/besselK.html)
