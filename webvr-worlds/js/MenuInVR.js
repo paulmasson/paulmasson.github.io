@@ -194,7 +194,7 @@ function setUpPointer() {
 }
 
 
-function checkInputs() {
+function checkForInput() {
 
   menuInVR.visible = renderer.vr.isPresenting();
   pointer.visible = renderer.vr.isPresenting();
