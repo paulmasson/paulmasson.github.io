@@ -21,17 +21,18 @@ function menuHTML() {
 
     var a = arguments[i];
 
-    var label = a.length === 1 ? `<i>${a}</i>` : `<i>${a.charAt(0)}</i><sub>${a.charAt(1)}</sub>`;
+    var label = 'label' in a ? a.label : `<i>${a.name}</i>`;
+    var value = 'default' in a ? a.default : 0;
 
     inputs += `
 <br/><br/>
-Re(<i>${label}</i>): <input type=range id=${a}Re value=0 min=-10 max=10 step=.01
-                            onchange="${a}ReBox.innerHTML=${a}Re.value" style="width: 1.5in"/>
-&nbsp;&nbsp; <span id=${a}ReBox><script> document.write(${a}Re.value) </script></span>
+Re(${label}): <input type=range id=${a.name}Re value=${value} min=-10 max=10 step=.01
+                     onchange="${a.name}ReBox.innerHTML=${a.name}Re.value" style="width: 1.5in"/>
+&nbsp;&nbsp; <span id=${a.name}ReBox><script> document.write(${a.name}Re.value) </script></span>
 <br/><br/>
-Im(<i>${label}</i>): <input type=range id=${a}Im value=0 min=-10 max=10 step=.01
-                            onchange="${a}ImBox.innerHTML=${a}Im.value" style="width: 1.5in"/>
-&nbsp;&nbsp; <span id=${a}ImBox><script> document.write(${a}Im.value) </script></span>`;
+Im(${label}): <input type=range id=${a.name}Im value=0 min=-10 max=10 step=.01
+                     onchange="${a.name}ImBox.innerHTML=${a.name}Im.value" style="width: 1.5in"/>
+&nbsp;&nbsp; <span id=${a.name}ImBox><script> document.write(${a.name}Im.value) </script></span>`;
 
   }
 
