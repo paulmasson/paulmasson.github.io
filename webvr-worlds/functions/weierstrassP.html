@@ -9,46 +9,23 @@
 
 <body style="margin: 0px; overflow: hidden">
 
-<div style="position: absolute; margin: .25in; padding: .25in; background-color: white">
-Function part:
-<input name=part type=radio value=re onchange="drawSurface()" checked/>
-  <label>re</label>
-<input name=part type=radio value=im onchange="drawSurface()"/>
-  <label>im</label>
-<input name=part type=radio value=abs onchange="drawSurface()"/>
-  <label>abs</label>
-<br/><br/>
-Re(<i>g</i><sub>2</sub>): <input type=number id=re1 value=1 step=.01
-                     onchange="drawSurface()" style="width: .5in"/> &nbsp;&nbsp;
-Im(<i>g</i><sub>2</sub>): <input type=number id=im1 value=0 step=.01
-                     onchange="drawSurface()" style="width: .5in"/>
-<br/><br/>
-Re(<i>g</i><sub>3</sub>): <input type=number id=re2 value=1 step=.01
-                     onchange="drawSurface()" style="width: .5in"/> &nbsp;&nbsp;
-Im(<i>g</i><sub>3</sub>): <input type=number id=im2 value=0 step=.01
-                     onchange="drawSurface()" style="width: .5in"/>
-</div>
-
-<div id="calculating"
-     style="width: 7in; height: 2in; margin: auto;
-            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
-            z-index: 1; visibility: visible; background-color: transparent;
-            color: white; font-size: 8em; text-align: center; line-height: 2in">
-calculating</div>
-
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r95/examples/js/vr/WebVR.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r100/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r100/examples/js/vr/WebVR.js"></script>
 
 <script src="https://paulmasson.github.io/math/build/math.js"></script>
 
 <script src="../js/FunctionSurface.js"></script>
 <script src="../js/VRController.js"></script>
+<script src="../js/MenuInVR.js"></script>
 
 <script>
+
+document.write( menuHTML( { name: 'g2', default: 1 }, { name: 'g3', default: 1 } ) );
 
 var scene = new THREE.Scene();
 
 var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor( 0x000000, 1 );
 document.body.appendChild( renderer.domElement );
@@ -60,7 +37,10 @@ var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHe
 
 var controller = new THREE.VRController( camera );
 controller.rig.add( camera );
+controller.rig.position.set( 0, 0, 15 );
 scene.add( controller.rig );
+
+scene.add( new THREE.AmbientLight() );
 
 window.addEventListener( 'resize', function() {
 
@@ -70,48 +50,19 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-var surface;
-drawSurface();
+function special( x, y ) { return weierstrassP( C(x,y), C(+g2Re.value,+g2Im.value), C(+g3Re.value,+g3Im.value) ); }
 
-function drawSurface( part ) {
+setUpMenuInVR();
+setUpPointer();
 
-  calculating.style.visibility = 'visible';
-
-  setTimeout( function() {
-
-    scene.remove( surface );
-
-    var part = document.querySelector( 'input[name=part]:checked' ).value;
-
-    var re1 = +document.getElementById( 're1' ).value;
-    var im1 = +document.getElementById( 'im1' ).value;
-
-    var re2 = +document.getElementById( 're2' ).value;
-    var im2 = +document.getElementById( 'im2' ).value;
-
-    surface = functionSurface( (x,y) => [ x, y, weierstrassP( C(x,y), C(re1,im1), C(re2,im2) ) ],
-                               [-10,10,251], [-10,10,251],
-                               { complexFunction: part, colormap: 'complexArgument' } )
-    // setting camera up not work
-    surface.rotation.z = pi;
-    surface.rotation.x = -pi/2;
-
-    scene.add( surface );
-
-    calculating.style.visibility = 'hidden';
-
-  }, 10 );
-
-}
-
-controller.rig.position.set( 0, 0, 15 );
-
-scene.add( new THREE.AmbientLight() );
+updateMenu();
 
 function render() {
 
   renderer.render( scene, camera );
   controller.update()
+
+  checkForInput();
 
 }
 
