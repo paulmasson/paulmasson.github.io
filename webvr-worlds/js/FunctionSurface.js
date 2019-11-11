@@ -83,10 +83,10 @@ function functionSurface( vector, xRange, yRange, options ) {
   for ( var i = faces.length - 1 ; i >= 0 ; i-- ) {
     var f = faces[i];
     var check = true;
-    f.forEach( index => check &= vertices[index][2] < zMin );
+    f.forEach( index => check = check && vertices[index][2] < zMin );
     if ( check ) faces.splice( i, 1 );
     var check = true;
-    f.forEach( index => check &= vertices[index][2] > zMax );
+    f.forEach( index => check = check && vertices[index][2] > zMax );
     if ( check ) faces.splice( i, 1 );
   }
 
