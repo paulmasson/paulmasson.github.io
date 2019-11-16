@@ -82,9 +82,11 @@ THREE.VRController = function( camera ) {
 
       }
 
+    }
+
     if ( gp !== null && gp.buttons[1].pressed ) {
 
-      this.dispatchEvent( new Event( 'trigger' ) );
+      window.dispatchEvent( new Event( 'trigger' ) );
 
     }
 
