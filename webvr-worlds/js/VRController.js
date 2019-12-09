@@ -1,5 +1,5 @@
 
-THREE.VRController = function( camera ) {
+THREE.VRController = function( camera, hand='Right' ) {
 
   THREE.Object3D.call( this );
 
@@ -23,9 +23,11 @@ THREE.VRController = function( camera ) {
 
     var gamepads = navigator.getGamepads();
 
-    var gp = gamepads[0] ? gamepads[0] : null;
+    var gp = gamepads[0]; // null when not available
 
-    if ( gp !== null && ( gp.buttons[0].pressed || gp.buttons[0].touched ) ) {
+    if ( gp && !gp.id.includes( hand ) ) gp = gamepads[1];
+
+    if ( gp && ( gp.buttons[0].pressed || gp.buttons[0].touched ) ) {
 
       var n = Math.round( 2 * Math.atan2( gp.axes[1], gp.axes[0] ) / Math.PI );
 
@@ -84,7 +86,7 @@ THREE.VRController = function( camera ) {
 
     }
 
-    if ( gp !== null && gp.buttons[1].pressed ) {
+    if ( gp && gp.buttons[1].pressed ) {
 
       window.dispatchEvent( new Event( 'trigger' ) );
 
