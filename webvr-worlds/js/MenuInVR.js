@@ -224,9 +224,9 @@ function checkForInput() {
     dot.style.backgroundColor = 'aqua';
 
     var gamepads = navigator.getGamepads()
-    var gp = gamepads[0] ? gamepads[0] : null;
+    var gp = gamepads[0]; // null when not available
 
-    if ( gp !== null && ( gp.buttons[0].pressed || gp.buttons[1].pressed ) ) {
+    if ( gp && ( gp.buttons[0].pressed || gp.buttons[1].pressed ) ) {
 
       var menuRect = menu.getBoundingClientRect();
       var elem = document.elementFromPoint( x + menuRect.x, y + menuRect.y );
