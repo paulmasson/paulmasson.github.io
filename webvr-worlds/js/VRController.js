@@ -25,7 +25,7 @@ THREE.VRController = function( camera, hand='Right' ) {
 
     var gp = gamepads[0]; // null when not available
 
-    if ( gp && !gp.id.includes( hand ) ) gp = gamepads[1];
+    if ( gp && gamepads[1] && !gp.id.includes( hand ) ) gp = gamepads[1];
 
     if ( gp && ( gp.buttons[0].pressed || gp.buttons[0].touched ) ) {
 
