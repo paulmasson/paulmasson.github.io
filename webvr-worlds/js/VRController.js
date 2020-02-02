@@ -1,5 +1,5 @@
 
-THREE.VRController = function( camera, hand='Right' ) {
+THREE.VRController = function( renderer, camera, hand='right' ) {
 
   THREE.Object3D.call( this );
 
@@ -19,19 +19,28 @@ THREE.VRController = function( camera, hand='Right' ) {
 
   this.update = function() {
 
-    camera.getWorldDirection( direction );
+    // camera.parent.getWorldDirection( direction );
+    var e = camera.matrixWorld.elements;
+    direction.set( -e[8], -e[9], -e[10] ).normalize();
 
-    var gamepads = navigator.getGamepads();
+    var session = 'xr' in renderer ? renderer.xr.getSession() : null;
+    var is = session ? session.inputSources : null;
+    var gp = null;
 
-    var gp = gamepads[0]; // null when not available
+    if ( is && is.length === 1 ) gp = is[0].gamepad;
+    if ( is && is.length === 2 ) gp = is[ hand === 'right' ? 0 : 1 ].gamepad;
 
-    if ( gp && gamepads[1] && !gp.id.includes( hand ) ) gp = gamepads[1];
+    // w3.org/TR/webxr-gamepads-module-1/#xr-standard-gamepad-mapping
+    var trigger = 0, pad, xAxis, yAxis;
 
-    if ( gp && ( gp.buttons[0].pressed || gp.buttons[0].touched ) ) {
+    if ( gp && gp.buttons.length <= 3 ) { pad = 2; xAxis = 0; yAxis = 1 }
+    if ( gp && gp.buttons.length > 3 )  { pad = 3; xAxis = 2; yAxis = 3 }
 
-      var n = Math.round( 2 * Math.atan2( gp.axes[1], gp.axes[0] ) / Math.PI );
+    if ( gp && ( gp.buttons[ pad ].pressed || gp.buttons[ pad ].touched ) ) {
 
-      if ( Math.sqrt( gp.axes[0]**2 + gp.axes[1]**2 ) < .3 ) n = 3;
+      var n = Math.round( 2 * Math.atan2( gp.axes[ yAxis ], gp.axes[ xAxis ] ) / Math.PI );
+
+      if ( Math.hypot( gp.axes[ xAxis ], gp.axes[ yAxis ] ) < .3 ) n = 3;
 
       switch( n ) {
 
@@ -86,7 +95,7 @@ THREE.VRController = function( camera, hand='Right' ) {
 
     }
 
-    if ( gp && gp.buttons[1].pressed ) {
+    if ( gp && gp.buttons[ trigger ].pressed ) {
 
       window.dispatchEvent( new Event( 'trigger' ) );
 
