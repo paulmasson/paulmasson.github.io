@@ -9,11 +9,12 @@
 
 <body style="margin: 0px; overflow: hidden">
 
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/examples/js/vr/WebVR.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r113/build/three.min.js"></script>
+
+<script src="js/VRButton.js"></script>
+<script src="js/VRController.js"></script>
 
 <script src="https://paulmasson.github.io/mathcell/build/mathcell.js"></script>
-<script src="js/VRController.js"></script>
 
 <script>
 
@@ -24,12 +25,12 @@ renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-renderer.vr.enabled = true;
-document.body.appendChild( THREE.WEBVR.createButton( renderer ) );
+renderer.xr.enabled = true;
+document.body.appendChild( VRButton.createButton( renderer ) );
 
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
 
-var controller = new THREE.VRController( camera );
+var controller = new THREE.VRController( renderer, camera );
 controller.rig.add( camera );
 controller.rig.position.set( 0, -1.5, 0 )
 scene.add( controller.rig );
@@ -45,7 +46,7 @@ window.addEventListener( 'resize', function() {
 var range = 4*Math.PI;
 
 var s = isosurface( (x,y,z) => Math.cos(x) + Math.cos(y) + Math.cos(z),
-                    [-range,range,100], [-range,range,100], [-range,range,100] )[0];
+                    [-range,range,50], [-range,range,50], [-range,range,50] )[0];
 
 
 var geometry = new THREE.Geometry();
