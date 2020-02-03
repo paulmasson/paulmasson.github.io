@@ -14,8 +14,9 @@
 
 <body>
 
-<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/build/three.min.js></script>
-<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/vr/WebVR.js></script>
+<script src=https://cdn.jsdelivr.net/gh/mrdoob/three.js@r113/build/three.min.js></script>
+
+<script src="../webvr-worlds/js/VRButton.js"></script>
 
 <script>
 
@@ -44,8 +45,8 @@
 	renderer.setClearColor( 0x000000, 1 );
 	document.body.appendChild( renderer.domElement );
 
-	renderer.vr.enabled = true;
-	document.body.appendChild( WEBVR.createButton( renderer ) );
+	renderer.xr.enabled = true;
+	document.body.appendChild( VRButton.createButton( renderer ) );
 
 	var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 4*scale );
 

@@ -12,8 +12,9 @@
 
 <body>
 
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r94/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r94/examples/js/vr/WebVR.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r113/build/three.min.js"></script>
+
+<script src="../webvr-worlds/js/VRButton.js"></script>
 
 <script>
 
@@ -76,10 +77,10 @@
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.vr.enabled = true;
+	renderer.xr.enabled = true;
 	document.body.appendChild( renderer.domElement );
 
-	document.body.appendChild( WEBVR.createButton( renderer ) );
+	document.body.appendChild( VRButton.createButton( renderer ) );
 
 	window.addEventListener( 'resize', function() {
 
