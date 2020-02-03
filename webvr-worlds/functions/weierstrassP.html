@@ -9,13 +9,14 @@
 
 <body style="margin: 0px; overflow: hidden">
 
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/examples/js/vr/WebVR.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r113/build/three.min.js"></script>
 
 <script src="https://paulmasson.github.io/math/build/math.js"></script>
 
-<script src="../js/FunctionSurface.js"></script>
+<script src="../js/VRButton.js"></script>
 <script src="../js/VRController.js"></script>
+
+<script src="../js/FunctionSurface.js"></script>
 <script src="../js/MenuInVR.js"></script>
 
 <script>
@@ -30,12 +31,12 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor( 0x000000, 1 );
 document.body.appendChild( renderer.domElement );
 
-renderer.vr.enabled = true;
-document.body.appendChild( THREE.WEBVR.createButton( renderer ) );
+renderer.xr.enabled = true;
+document.body.appendChild( VRButton.createButton( renderer ) );
 
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-var controller = new THREE.VRController( camera );
+var controller = new THREE.VRController( renderer, camera );
 controller.rig.add( camera );
 controller.rig.position.set( 0, 0, 15 );
 scene.add( controller.rig );
