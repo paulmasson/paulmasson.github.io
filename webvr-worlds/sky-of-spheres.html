@@ -42,7 +42,10 @@ window.addEventListener( 'resize', function() {
 
 } );
 
-window.addEventListener( 'vrdisplaypresentchange', function() { drone.play(); } );
+var isPresenting = false;
+
+window.addEventListener( 'vrdisplaypresentchange',
+ function() { isPresenting = !isPresenting; drone.play(); } );
 
 var scale = 10;
 var speed = .001;
