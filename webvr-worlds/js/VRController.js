@@ -27,8 +27,19 @@ THREE.VRController = function( renderer, camera, hand='right' ) {
     var is = session ? session.inputSources : null;
     var gp = null;
 
-    if ( is && is.length === 1 ) gp = is[0].gamepad;
-    if ( is && is.length === 2 ) gp = is[ hand === 'right' ? 0 : 1 ].gamepad;
+    if ( is && is.length === 1 ) {
+      gp = is[0].gamepad;
+      this.gamepad = gp;
+      this.quaternion.copy( renderer.xr.getController(0).quaternion );
+    }
+
+    if ( is && is.length === 2 ) {
+      var n = is[0].handedness === hand ? 0 : 1;
+      gp = is[n].gamepad;
+      this.gamepad = gp;
+// error for next line in animation loop if n>0
+      if ( n === 0 ) this.quaternion.copy( renderer.xr.getController(n).quaternion );
+    }
 
     // w3.org/TR/webxr-gamepads-module-1/#xr-standard-gamepad-mapping
     var trigger = 0, pad, xAxis, yAxis;

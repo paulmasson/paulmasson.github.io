@@ -7,7 +7,7 @@ var parser = new DOMParser();
 var serializer = new XMLSerializer();
 var image = document.createElement( 'img' );
 
-var hardware, quaternion, origin, line, pointer;
+var origin, line, pointer;
 
 var raycaster = new THREE.Raycaster( );
 var scratch = new THREE.Vector3();
@@ -179,8 +179,6 @@ function drawSurface() {
 
 function setUpPointer() {
 
-  hardware = 'xr' in renderer ? renderer.xr.getController( 0 ) : null;
-  quaternion = hardware ? hardware.quaternion : new THREE.Quaternion();
   origin = new THREE.Vector3( .3, 1, -.2 ); // position of hardware in VR
 
   line = new THREE.Geometry();
@@ -201,8 +199,8 @@ function checkForInput() {
   menuInVR.visible = 'xr' in renderer ? renderer.xr.isPresenting : false;
   pointer.visible = menuInVR.visible;
 
-  // hardware quaterion is perpendicular to touchpad
-  line.vertices[1].set(0,0,-1).applyQuaternion( quaternion ).add( origin );
+  // controller quaterion is perpendicular to touchpad
+  line.vertices[1].set(0,0,-1).applyQuaternion( controller.quaternion ).add( origin );
   line.verticesNeedUpdate = true;
 
   scratch.copy( origin ).applyQuaternion( controller.rig.quaternion );
@@ -224,8 +222,7 @@ function checkForInput() {
     dot.style.top = y - 5 + 'px';
     dot.style.backgroundColor = 'aqua';
 
-    var session = 'xr' in renderer ? renderer.xr.getSession() : null;
-    var gp = session ? session.inputSources[0].gamepad : null;
+    var gp = controller.gamepad;
     var trigger = 0;
 
     if ( gp && ( gp.buttons[ trigger ].pressed ) ) {
