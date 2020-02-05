@@ -58,8 +58,12 @@ window.addEventListener( 'resize', function() {
 
 var isPresenting = false;
 
-window.addEventListener( 'vrdisplaypresentchange',
- function() { isPresenting = !isPresenting; drone.play(); } );
+if ( 'xr' in renderer ) {
+  renderer.xr.addEventListener( 'sessionstart',
+    function() { isPresenting = !isPresenting; drone.play(); } );
+  renderer.xr.addEventListener( 'sessionend',
+    function() { isPresenting = !isPresenting; } );
+}
 
 var n = 10; // number of bodies
 
