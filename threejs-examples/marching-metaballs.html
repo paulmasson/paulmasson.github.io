@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Marching Metaballs</title>
+</head>
+
+<body style="margin: 0in; overflow: hidden">
+
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r110/examples/js/controls/OrbitControls.js"></script>
+
+<script src="https://paulmasson.github.io/mathcell/build/mathcell.js"></script>
+
+<script>
+
+var scene = new THREE.Scene();
+var renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( 0x000000, 1 );
+document.body.appendChild( renderer.domElement ); 
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000 ); 
+camera.up.set( 0, 0, 1 );
+camera.position.set( 3, 3, 3 );
+
+var controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+window.addEventListener( 'resize', function() {
+
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+} );
+
+var geometry = new THREE.BufferGeometry();
+geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 51*51*51 ), 3 ) );
+
+var material = new THREE.MeshNormalMaterial( { color: 0x0077ff } );
+var mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+var t = 0;
+
+function render() {
+
+  requestAnimationFrame( render ); 
+  renderer.render( scene, camera );
+
+  for ( var i = 0 ; i < geometry.attributes.position.array.length ; i++ )
+    geometry.attributes.position.array[i] = 0;
+
+  var s = isosurface( (x,y,z) => 1 / ( (x-1)**2 + y**2 + (z-Math.sin(t))**2 )
+                                 + 1 / ( (x-Math.cos(t))**2 + (y+1)**2 + (z-.73*Math.cos(t))**2 )
+                                 + 1 / ( (x-.35*Math.cos(t))**2 + (y-1)**2 + (z-Math.cos(t))**2 )
+                                 - 2,
+                       [-2,2], [-2,2], [-2,2] )[0];
+
+  for ( var i = 0 ; i < s.faces.length ; i++ )
+    for ( var j = 0 ; j < 3 ; j++ )
+      for ( var k = 0 ; k < 3 ; k++ )
+        geometry.attributes.position.array[ 9*i + 3*j + k ] = s.vertices[ s.faces[i][j] ][k];
+
+  geometry.computeVertexNormals();
+  geometry.attributes.position.needsUpdate = true;
+
+  t += .1
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
