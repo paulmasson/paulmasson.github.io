@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sitemap</title>
+</head>
+
+<body>
+
+<script>
+
+var root = 'https://paulmasson.github.io/';
+
+var xhr = new XMLHttpRequest();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/paulmasson.github.io/contents/threejs-examples', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/paulmasson.github.io/contents/webvr-worlds', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/paulmasson.github.io/contents/webvr-worlds/functions', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/math/contents/docs', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + 'math/' + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/math/contents/docs/functions', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + 'math/' + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/mathcell/contents/docs', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + 'mathcell/' + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+xhr.open( 'GET', 'https://api.github.com/repos/paulmasson/mathcell/contents/docs/examples', false );
+
+xhr.onload = function() {
+
+  var files = JSON.parse( xhr.response );
+
+  files.forEach( f => {
+    if ( f.path.indexOf( 'html' ) > -1 ) document.write( root + 'mathcell/' + f.path + '<br>' )
+  } );
+
+}
+
+xhr.send();
+
+</script>
+
+</body>
+</html>
