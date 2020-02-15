@@ -1,6 +1,4 @@
 
-THREE.Vector3.prototype.setFromVector = function( v ) { this.x = v.x; this.y = v.y; this.z = v.z; }
-
 var canvas, context, texture, menuInVR, surface;
 
 var parser = new DOMParser();
@@ -204,12 +202,12 @@ function checkForInput() {
   line.verticesNeedUpdate = true;
 
   scratch.copy( origin ).applyQuaternion( controller.rig.quaternion );
-  raycaster.ray.origin.setFromVector( scratch );
+  raycaster.ray.origin.copy( scratch );
   raycaster.ray.origin.add( controller.rig.getWorldPosition( scratch ) );
 
   scratch.copy( line.vertices[1] ).sub( line.vertices[0] )
     .applyQuaternion( controller.rig.quaternion ).normalize();
-  raycaster.ray.direction.setFromVector( scratch );
+  raycaster.ray.direction.copy( scratch );
 
   var p = raycaster.intersectObject( menuInVR );
 
