@@ -34,9 +34,9 @@ window.addEventListener( 'resize', function() {
 } );
 
 var geometry = new THREE.BufferGeometry();
-geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 51*51*51 ), 3 ) );
+geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 50*50*50 ), 3 ) );
 
-var material = new THREE.MeshNormalMaterial();
+var material = new THREE.MeshNormalMaterial( { side: THREE.DoubleSide } );
 var mesh = new THREE.Mesh( geometry, material );
 scene.add( mesh );
 
@@ -49,6 +49,8 @@ function render() {
 
   for ( var i = 0 ; i < geometry.attributes.position.array.length ; i++ )
     geometry.attributes.position.array[i] = 0;
+
+  // easily produce plane by adding linear term to expression
 
   var s = isosurface( (x,y,z) => 1 / ( (x-1)**2 + y**2 + (z-Math.sin(t))**2 )
                                  + 1 / ( (x-Math.cos(t))**2 + (y-.7*Math.sin(t))**2 + (z+.9*Math.cos(t))**2 )
