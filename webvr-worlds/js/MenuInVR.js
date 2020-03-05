@@ -9,6 +9,7 @@ var origin, line, pointer;
 
 var raycaster = new THREE.Raycaster( );
 var scratch = new THREE.Vector3();
+var canUpdate = true;
 
 
 function menuHTML() {
@@ -223,7 +224,9 @@ function checkForInput() {
     var gp = controller.gamepad;
     var trigger = 0;
 
-    if ( gp && ( gp.buttons[ trigger ].pressed ) ) {
+    if ( gp && ( gp.buttons[ trigger ].pressed ) && canUpdate ) {
+
+      canUpdate = false;
 
       var menuRect = menu.getBoundingClientRect();
       var elem = document.elementFromPoint( x + menuRect.x, y + menuRect.y );
@@ -236,6 +239,8 @@ function checkForInput() {
         elem.onchange();
         updateMenu();
       } else elem.click();
+
+      setTimeout( function() { canUpdate = true; }, 1000 );
 
     }
 
