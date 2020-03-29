@@ -46,4 +46,4 @@
 [Riemann zeta function](https://paulmasson.github.io/webxr-worlds/functions/zeta.html)<br/>
 [Dirichlet eta function](https://paulmasson.github.io/webxr-worlds/functions/dirichletEta.html)
 
-Navigation control is available for thumbpads. Rotate left and right by holding down the appropriate side of the thumbpad. Move forward and backward in the direction of the WebVR camera by holding down the upper or lower part of the thumbpad.
+Navigation control is available for thumbpads. Rotate left and right by holding down the appropriate side of the thumbpad. Move forward and backward in the direction of the WebXR camera by holding down the upper or lower part of the thumbpad.
