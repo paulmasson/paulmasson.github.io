@@ -51,7 +51,7 @@ function functionSurface( vector, xRange, yRange, options ) {
             vertices.push( [ v[0], v[1], v[2].im ] );
             break;
           case 'abs':
-            vertices.push( [ v[0], v[1], Math.sqrt( v[2].re**2 + v[2].im**2 ) ] );
+            vertices.push( [ v[0], v[1], Math.hypot( v[2].re, v[2].im ) ] );
             break;
           default:
             throw 'Unsupported complex function case';
