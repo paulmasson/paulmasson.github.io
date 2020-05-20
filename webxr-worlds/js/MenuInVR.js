@@ -162,11 +162,16 @@ function drawSurface() {
 
     surface = functionSurface( (x,y) => [ x, y, special(x,y) ], [-10.1,10.1,201], [-10.1,10.1,201],
                                { complexFunction: part, colormap: 'complexArgument', zMinMax: 100 } )
-    // setting camera up not work
-    surface.rotation.z = pi;
-    surface.rotation.x = -pi/2;
 
-    scene.add( surface );
+    surface.forEach( s => {
+
+      // setting camera up not work
+      s.rotation.z = pi;
+      s.rotation.x = -pi/2;
+
+      scene.add( s );
+
+    } );
 
     menu.style.opacity = 1;
     menuInVR.material.opacity = 1;

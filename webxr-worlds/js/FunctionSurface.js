@@ -36,27 +36,30 @@ function functionSurface( vector, xRange, yRange, options ) {
   var vertices = [];
   if ( 'colormap' in options ) options.colors = [];
 
+  function whichPart( v ) {
+    if ( 'complexFunction' in options )
+      switch( options.complexFunction ) {
+        case 're':
+          return [ v[0], v[1], v[2].re ];
+          break;
+        case 'im':
+          return [ v[0], v[1], v[2].im ];
+          break;
+        case 'abs':
+          return [ v[0], v[1], Math.hypot( v[2].re, v[2].im ) ];
+          break;
+        default:
+          throw 'Unsupported complex function case';
+      }
+    else return v;
+  }
+
   for ( var i = 0 ; i <= stacks ; i++ ) {
     var y = yRange[0] + i * yStep;
     for ( var j = 0 ; j <= slices ; j++ ) {
       var x = xRange[0] + j * xStep;
       var v = vector(x,y);
-
-      if ( 'complexFunction' in options )
-        switch( options.complexFunction ) {
-          case 're':
-            vertices.push( [ v[0], v[1], v[2].re ] );
-            break;
-          case 'im':
-            vertices.push( [ v[0], v[1], v[2].im ] );
-            break;
-          case 'abs':
-            vertices.push( [ v[0], v[1], Math.hypot( v[2].re, v[2].im ) ] );
-            break;
-          default:
-            throw 'Unsupported complex function case';
-        }
-      else vertices.push( v );
+      vertices.push( whichPart(v) );
 
       if ( 'colormap' in options )
         if ( options.colormap === 'complexArgument' ) {
@@ -126,6 +129,58 @@ function functionSurface( vector, xRange, yRange, options ) {
     material.color.set( 'white' ); // crucial!
   }
 
-  return new THREE.Mesh( geometry, material );
+  var surfaceMesh = new THREE.Mesh( geometry, material );
+
+  // gridlines
+
+  var gridX = [], gridY = [], delta = .005;
+  var geometry = new THREE.Geometry();
+
+  for ( var x = Math.trunc(xRange[0]) ; x <= Math.trunc(xRange[1]) ; x++ ) {
+    gridX[x] = [];
+    for ( var y = yRange[0] ; y <= yRange[1] ; y += yStep ) {
+      var v = whichPart( vector(x,y) );
+      if ( v[2] < zMin ) v[2] = zMin;
+      if ( v[2] > zMax ) v[2] = zMax;
+      gridX[x].push(v);
+    }
+  }
+
+  for ( var y = Math.trunc(yRange[0]) ; y <= Math.trunc(yRange[1]) ; y++ ) {
+    gridY[y] = [];
+    for ( var x = xRange[0] ; x <= xRange[1] ; x += xStep ) {
+      var v = whichPart( vector(x,y) );
+      if ( v[2] < zMin ) v[2] = zMin;
+      if ( v[2] > zMax ) v[2] = zMax;
+      gridY[y].push(v);
+    }
+  }
+
+  for ( var i = Math.trunc(xRange[0]) ; i < gridX.length ; i++ )
+    for ( var j = 0 ; j < gridX[i].length - 1 ; j++ ) {
+      var v1 = gridX[i][j], v2 = gridX[i][j+1];
+      geometry.vertices.push(
+        new THREE.Vector3( v1[0], v1[1], v1[2]+delta ),
+        new THREE.Vector3( v2[0], v2[1], v2[2]+delta ),
+        new THREE.Vector3( v1[0], v1[1], v1[2]-delta ),
+        new THREE.Vector3( v2[0], v2[1], v2[2]-delta ) );
+    }
+
+  for ( var i = Math.trunc(yRange[0]) ; i < gridY.length ; i++ )
+    for ( var j = 0 ; j < gridY[i].length - 1 ; j++ ) {
+      var v1 = gridY[i][j], v2 = gridY[i][j+1];
+      geometry.vertices.push(
+        new THREE.Vector3( v1[0], v1[1], v1[2]+delta ),
+        new THREE.Vector3( v2[0], v2[1], v2[2]+delta ),
+        new THREE.Vector3( v1[0], v1[1], v1[2]-delta ),
+        new THREE.Vector3( v2[0], v2[1], v2[2]-delta ) );
+    }
+
+  var material = new THREE.LineBasicMaterial( { color: 'gray', linewidth: 1 } );
+
+  var gridMesh = new THREE.LineSegments( geometry, material );
+
+
+  return [ surfaceMesh, gridMesh ];
 
 }
