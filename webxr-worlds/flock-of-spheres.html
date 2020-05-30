@@ -51,6 +51,7 @@ window.addEventListener( 'resize', function() {
 } );
 
 if ( 'xr' in renderer ) renderer.xr.addEventListener( 'sessionstart', function() { drone.play(); } );
+if ( 'xr' in renderer ) renderer.xr.addEventListener( 'sessionend', function() { drone.pause(); } );
 
 var n = 100; // number of bodies
 var motionStrength = .001;

@@ -43,6 +43,7 @@ window.addEventListener( 'resize', function() {
 } );
 
 if ( 'xr' in renderer ) renderer.xr.addEventListener( 'sessionstart', function() { drone.play(); } );
+if ( 'xr' in renderer ) renderer.xr.addEventListener( 'sessionend', function() { drone.pause(); } );
 
 var scale = 10;
 var speed = .001;

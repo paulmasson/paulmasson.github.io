@@ -62,7 +62,7 @@ if ( 'xr' in renderer ) {
   renderer.xr.addEventListener( 'sessionstart',
     function() { isPresenting = !isPresenting; drone.play(); } );
   renderer.xr.addEventListener( 'sessionend',
-    function() { isPresenting = !isPresenting; } );
+    function() { isPresenting = !isPresenting; drone.pause(); } );
 }
 
 var n = 10; // number of bodies
