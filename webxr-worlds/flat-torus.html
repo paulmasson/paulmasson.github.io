@@ -27,6 +27,7 @@ renderer.xr.enabled = true;
 document.body.appendChild( VRButton.createButton( renderer ) );
 
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 100 );
+camera.position.set( 0, 1.6, 1 );
 
 var controller = new THREE.VRController( renderer, camera );
 controller.rig.add( camera );
