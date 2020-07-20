@@ -19,7 +19,7 @@ THREE.VRController = function( renderer, camera, hand='right' ) {
 
   this.update = function() {
 
-    // camera.parent.getWorldDirection( direction );
+    // camera.getWorldDirection() defaults to rig...
     var e = camera.matrixWorld.elements;
     direction.set( -e[8], -e[9], -e[10] ).normalize();
 
