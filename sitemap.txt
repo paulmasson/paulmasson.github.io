@@ -129,6 +129,7 @@ https://paulmasson.github.io/mathcell/docs/examples/cabello-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/cardinal-sine-3d.html
 https://paulmasson.github.io/mathcell/docs/examples/color-cube.html
 https://paulmasson.github.io/mathcell/docs/examples/colormap-tester.html
+https://paulmasson.github.io/mathcell/docs/examples/complex-point-inspector.html
 https://paulmasson.github.io/mathcell/docs/examples/concentric-spheres.html
 https://paulmasson.github.io/mathcell/docs/examples/conjugate-roots.html
 https://paulmasson.github.io/mathcell/docs/examples/cornu-spiral.html
