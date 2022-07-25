@@ -124,6 +124,7 @@ https://paulmasson.github.io/mathcell/docs/examples/argument-function.html
 https://paulmasson.github.io/mathcell/docs/examples/bessel-functions.html
 https://paulmasson.github.io/mathcell/docs/examples/binet-ellipsoid.html
 https://paulmasson.github.io/mathcell/docs/examples/bourke-harmonics.html
+https://paulmasson.github.io/mathcell/docs/examples/branches-of-power-functions.html
 https://paulmasson.github.io/mathcell/docs/examples/butterfly-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/cabello-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/cardinal-sine-3d.html
