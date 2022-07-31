@@ -146,6 +146,7 @@ https://paulmasson.github.io/mathcell/docs/examples/kepler-phase-space.html
 https://paulmasson.github.io/mathcell/docs/examples/latex-display.html
 https://paulmasson.github.io/mathcell/docs/examples/log-of-exp.html
 https://paulmasson.github.io/mathcell/docs/examples/logistic-map.html
+https://paulmasson.github.io/mathcell/docs/examples/mandelbrot-set.html
 https://paulmasson.github.io/mathcell/docs/examples/multiple-outputs.html
 https://paulmasson.github.io/mathcell/docs/examples/mystery-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/piecewise-step-function.html
