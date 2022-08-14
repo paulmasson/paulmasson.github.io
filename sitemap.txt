@@ -105,7 +105,9 @@ https://paulmasson.github.io/math/docs/functions/sqrt.html
 https://paulmasson.github.io/math/docs/functions/tan.html
 https://paulmasson.github.io/math/docs/functions/tanh.html
 https://paulmasson.github.io/math/docs/functions/zeta.html
+https://paulmasson.github.io/mathcell/docs/animations.html
 https://paulmasson.github.io/mathcell/docs/colormaps.html
+https://paulmasson.github.io/mathcell/docs/examples-list.html
 https://paulmasson.github.io/mathcell/docs/examples.html
 https://paulmasson.github.io/mathcell/docs/graphics.html
 https://paulmasson.github.io/mathcell/docs/index.html
@@ -147,6 +149,7 @@ https://paulmasson.github.io/mathcell/docs/examples/latex-display.html
 https://paulmasson.github.io/mathcell/docs/examples/log-of-exp.html
 https://paulmasson.github.io/mathcell/docs/examples/logistic-map.html
 https://paulmasson.github.io/mathcell/docs/examples/mandelbrot-set.html
+https://paulmasson.github.io/mathcell/docs/examples/moving-spheres.html
 https://paulmasson.github.io/mathcell/docs/examples/multiple-outputs.html
 https://paulmasson.github.io/mathcell/docs/examples/mystery-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/piecewise-step-function.html
