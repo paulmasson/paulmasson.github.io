@@ -144,6 +144,7 @@ https://paulmasson.github.io/mathcell/docs/examples/hello-world-threejs.html
 https://paulmasson.github.io/mathcell/docs/examples/hyperbolic-helicoid.html
 https://paulmasson.github.io/mathcell/docs/examples/hyperfunctions.html
 https://paulmasson.github.io/mathcell/docs/examples/jacobi-sn-complex-lines.html
+https://paulmasson.github.io/mathcell/docs/examples/kepler-orbits.html
 https://paulmasson.github.io/mathcell/docs/examples/kepler-phase-space.html
 https://paulmasson.github.io/mathcell/docs/examples/latex-display.html
 https://paulmasson.github.io/mathcell/docs/examples/log-of-exp.html
