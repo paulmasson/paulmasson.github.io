@@ -139,6 +139,7 @@ https://paulmasson.github.io/mathcell/docs/examples/cornu-spiral.html
 https://paulmasson.github.io/mathcell/docs/examples/dirichlet-kernel.html
 https://paulmasson.github.io/mathcell/docs/examples/flow-lines.html
 https://paulmasson.github.io/mathcell/docs/examples/fourier-series.html
+https://paulmasson.github.io/mathcell/docs/examples/generalized-lambert.html
 https://paulmasson.github.io/mathcell/docs/examples/hello-world-svg.html
 https://paulmasson.github.io/mathcell/docs/examples/hello-world-threejs.html
 https://paulmasson.github.io/mathcell/docs/examples/hyperbolic-helicoid.html
