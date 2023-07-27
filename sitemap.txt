@@ -90,6 +90,7 @@ https://paulmasson.github.io/math/docs/functions/exp.html
 https://paulmasson.github.io/math/docs/functions/gamma.html
 https://paulmasson.github.io/math/docs/functions/hankel1.html
 https://paulmasson.github.io/math/docs/functions/hankel2.html
+https://paulmasson.github.io/math/docs/functions/lambertW.html
 https://paulmasson.github.io/math/docs/functions/log.html
 https://paulmasson.github.io/math/docs/functions/logGamma.html
 https://paulmasson.github.io/math/docs/functions/pow.html
@@ -104,6 +105,7 @@ https://paulmasson.github.io/math/docs/functions/sphericalHarmonic.html
 https://paulmasson.github.io/math/docs/functions/sqrt.html
 https://paulmasson.github.io/math/docs/functions/tan.html
 https://paulmasson.github.io/math/docs/functions/tanh.html
+https://paulmasson.github.io/math/docs/functions/wrightOmega.html
 https://paulmasson.github.io/math/docs/functions/zeta.html
 https://paulmasson.github.io/mathcell/docs/animations.html
 https://paulmasson.github.io/mathcell/docs/colormaps.html
@@ -158,6 +160,7 @@ https://paulmasson.github.io/mathcell/docs/examples/piecewise-step-function.html
 https://paulmasson.github.io/mathcell/docs/examples/random-points.html
 https://paulmasson.github.io/mathcell/docs/examples/real-imaginary-parts.html
 https://paulmasson.github.io/mathcell/docs/examples/schwarz-primitive-surface.html
+https://paulmasson.github.io/mathcell/docs/examples/seiffert-spiral.html
 https://paulmasson.github.io/mathcell/docs/examples/sine-wave-3d.html
 https://paulmasson.github.io/mathcell/docs/examples/sine-waves.html
 https://paulmasson.github.io/mathcell/docs/examples/slinky-thing.html
