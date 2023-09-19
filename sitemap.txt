@@ -157,6 +157,7 @@ https://paulmasson.github.io/mathcell/docs/examples/moving-spheres.html
 https://paulmasson.github.io/mathcell/docs/examples/multiple-outputs.html
 https://paulmasson.github.io/mathcell/docs/examples/mystery-curve.html
 https://paulmasson.github.io/mathcell/docs/examples/piecewise-step-function.html
+https://paulmasson.github.io/mathcell/docs/examples/plane-cutting-cylinder.html
 https://paulmasson.github.io/mathcell/docs/examples/random-points.html
 https://paulmasson.github.io/mathcell/docs/examples/real-imaginary-parts.html
 https://paulmasson.github.io/mathcell/docs/examples/schwarz-primitive-surface.html
