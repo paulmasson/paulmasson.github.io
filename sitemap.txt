@@ -90,6 +90,7 @@ https://paulmasson.github.io/math/docs/functions/exp.html
 https://paulmasson.github.io/math/docs/functions/gamma.html
 https://paulmasson.github.io/math/docs/functions/hankel1.html
 https://paulmasson.github.io/math/docs/functions/hankel2.html
+https://paulmasson.github.io/math/docs/functions/inverseWeierstrassP.html
 https://paulmasson.github.io/math/docs/functions/lambertW.html
 https://paulmasson.github.io/math/docs/functions/log.html
 https://paulmasson.github.io/math/docs/functions/logGamma.html
@@ -105,6 +106,8 @@ https://paulmasson.github.io/math/docs/functions/sphericalHarmonic.html
 https://paulmasson.github.io/math/docs/functions/sqrt.html
 https://paulmasson.github.io/math/docs/functions/tan.html
 https://paulmasson.github.io/math/docs/functions/tanh.html
+https://paulmasson.github.io/math/docs/functions/weierstrassP.html
+https://paulmasson.github.io/math/docs/functions/weierstrassPPrime.html
 https://paulmasson.github.io/math/docs/functions/wrightOmega.html
 https://paulmasson.github.io/math/docs/functions/zeta.html
 https://paulmasson.github.io/mathcell/docs/animations.html
