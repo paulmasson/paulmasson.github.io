@@ -91,7 +91,10 @@ https://paulmasson.github.io/math/docs/functions/gamma.html
 https://paulmasson.github.io/math/docs/functions/hankel1.html
 https://paulmasson.github.io/math/docs/functions/hankel2.html
 https://paulmasson.github.io/math/docs/functions/inverseWeierstrassP.html
+https://paulmasson.github.io/math/docs/functions/jacobiTheta.html
 https://paulmasson.github.io/math/docs/functions/lambertW.html
+https://paulmasson.github.io/math/docs/functions/lemniscateCos.html
+https://paulmasson.github.io/math/docs/functions/lemniscateSin.html
 https://paulmasson.github.io/math/docs/functions/log.html
 https://paulmasson.github.io/math/docs/functions/logGamma.html
 https://paulmasson.github.io/math/docs/functions/pow.html
@@ -145,6 +148,7 @@ https://paulmasson.github.io/mathcell/docs/examples/dirichlet-kernel.html
 https://paulmasson.github.io/mathcell/docs/examples/flow-lines.html
 https://paulmasson.github.io/mathcell/docs/examples/fourier-series.html
 https://paulmasson.github.io/mathcell/docs/examples/generalized-lambert.html
+https://paulmasson.github.io/mathcell/docs/examples/gyroid-minimal-surface.html
 https://paulmasson.github.io/mathcell/docs/examples/hello-world-svg.html
 https://paulmasson.github.io/mathcell/docs/examples/hello-world-threejs.html
 https://paulmasson.github.io/mathcell/docs/examples/hyperbolic-helicoid.html
